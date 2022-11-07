@@ -53,7 +53,7 @@ const destroyJobImport = (jobId) => {
             </section>
 
             <section class="mt-8">
-                <Paginator :links="jobs"></Paginator>
+                <Paginator :links="jobs.links"></Paginator>
             </section>
         </div>
     </AdminLayout>

@@ -18,7 +18,11 @@ class JobImportController extends Controller
      */
     public function index()
     {
-        $jobs = JobImport::query()->filter()->latest()->active()->paginate(50);
+        $jobs = JobImport::query()
+            ->select('id', 'title', 'company_name')
+            ->filter()
+            ->latest()->active()->paginate(50);
+
 
         return Inertia::render('Admin/JobImport/Index', compact('jobs'));
     }
