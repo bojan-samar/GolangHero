@@ -15,7 +15,9 @@ defineProps({
 });
 
 const destroyJobImport = (jobId) => {
-    Inertia.delete(route('admin.job-import.destroy', jobId))
+    Inertia.delete(route('admin.job-import.destroy', jobId),{
+        preserveScroll: true,
+    })
 };
 
 </script>
