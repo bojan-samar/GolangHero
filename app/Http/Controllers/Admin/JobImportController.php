@@ -105,8 +105,8 @@ class JobImportController extends Controller
         $job->status = 1;
         $job->save();
 
-//        $jobImport->status = 0;
-//        $jobImport->save();
+        $jobImport->status = 0;
+        $jobImport->save();
 
         return redirect()->route('admin.job-import.index')->with('flash.success', 'Job Updated');
     }

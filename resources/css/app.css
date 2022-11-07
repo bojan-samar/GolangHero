@@ -18,6 +18,23 @@ p{
     @apply border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm;
 }
 
+.ProseMirror{
+    @apply border p-4 form-input;
+}
+
+.prose-is-active{
+    @apply text-blue-500;
+}
+
+.prose-button{
+    padding: 3px;
+    min-width: 20px;
+    font-weight: 500;
+}
+
+.prose-button:hover{
+    @apply text-blue-600;
+}
 
 .video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
 
