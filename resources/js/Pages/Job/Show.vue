@@ -2,13 +2,28 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import ApplyForm from "@/Components/Job/ApplyForm.vue";
-import JobCard from "@/Components/Job/JobCard.vue";
+import {Editor, EditorContent} from '@tiptap/vue-3'
+import StarterKit from '@tiptap/starter-kit'
+import {onMounted, reactive, ref} from "vue";
 
 
-defineProps({
+const state = reactive({
+    'editor': null,
+})
+
+const props = defineProps({
     job: Object,
+});
+
+onMounted(() => {
+    state.editor = new Editor({
+        editable: false,
+        extensions: [
+            StarterKit,
+        ],
+        content: JSON.parse(props.job.data.description)
+    })
 });
 
 </script>
@@ -47,7 +62,7 @@ defineProps({
                 </div>
             </div>
 
-            <div id="description" class="mt-10" v-html="job.data.description"></div>
+            <EditorContent :editor="state.editor"/>
 
             <div class="mt-5">
                 <a href="#apply">
