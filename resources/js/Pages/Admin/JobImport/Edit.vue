@@ -10,6 +10,8 @@ import {onMounted, reactive, ref} from "vue";
 import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import ActionMessage from '@/Components/ActionMessage.vue';
+import DangerButton from '@/Components/DangerButton.vue';
+import {Inertia} from "@inertiajs/inertia";
 
 
 const props = defineProps({
@@ -60,6 +62,10 @@ const store = () => {
     form.post(route('admin.job-import.update', props.job.id))
 };
 
+const destroy = () => {
+    Inertia.delete(route('admin.job-import.destroy', props.job.id))
+};
+
 const storeCompany = () => {
     axios.post(route('admin.company.store'), {
         company_name: state.newCompanyName,
@@ -88,12 +94,17 @@ const search = () => {
 <template>
     <AdminLayout title="Job Import Edit">
 
-        <section class="max-w-4xl mx-auto">
+        <section class="max-w-4xl mx-auto flex justify-between">
+            <Link :href="route('admin.job-import.index')">
+                <SecondaryButton>Back</SecondaryButton>
+            </Link>
+
             <div>
-                <Link :href="route('admin.job-import.index')">
-                    <SecondaryButton>Back</SecondaryButton>
-                </Link>
+                <DangerButton @click="destroy">Delete</DangerButton>
             </div>
+        </section>
+
+        <section class="max-w-4xl mx-auto">
 
             <section class="bg-white p-4 shadow rounded-lg mt-5">
                 <form @submit.prevent="store" class="mt-8">
