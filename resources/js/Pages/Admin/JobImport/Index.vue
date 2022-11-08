@@ -42,6 +42,9 @@ const destroyJobImport = (jobId, index) => {
                         <TableRow v-for="(job, index) in jobs.data" :key="job.id">
                             <TableCell>
                                 <Link :href="route('admin.job-import.edit', job.id)">{{ job.title }}</Link>
+                                <div class="text-sm">
+                                    Salary Min: {{ job.salary_min }} - Salary Max: {{ job.salary_max }}
+                                </div>
                             </TableCell>
                             <TableCell>{{ job.company_name }}</TableCell>
                             <TableCell>

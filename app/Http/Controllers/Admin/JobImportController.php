@@ -20,7 +20,7 @@ class JobImportController extends Controller
     public function index()
     {
         $jobs = JobImport::query()
-            ->select('id', 'title', 'company_name')
+            ->select('id', 'title', 'company_name', 'salary_min', 'salary_max')
             ->filter()
             ->latest()->active()->paginate(50);
 
