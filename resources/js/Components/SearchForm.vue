@@ -11,9 +11,9 @@ const searchText = ref(null);
 
 
 const search = () => {
-    Inertia.get(route(props.routeName), {
-        search: props.searchText,
-    })
+    Inertia.get(route(props.routeName), {search: searchText.value}, {
+        preserveState: true,
+    });
 };
 
 </script>

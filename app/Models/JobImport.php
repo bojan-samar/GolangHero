@@ -24,10 +24,10 @@ class JobImport extends Model
 
     public function scopeFilter($query)
     {
-        request()->validate([
-            'status' => 'nullable|numeric',
-            'search' => 'nullable|string|min:2|max:100',
-        ]);
+//        request()->validate([
+//            'status' => 'nullable|numeric',
+//            'search' => 'nullable|string|min:2|max:100',
+//        ]);
 
         $search = request()->search;
         if ($search) {

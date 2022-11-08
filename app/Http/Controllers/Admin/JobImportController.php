@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\JobImport;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -121,10 +122,12 @@ class JobImportController extends Controller
      * @param  \App\Models\JobImport  $jobImport
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JobImport $jobImport)
+    public function destroy(JobImport $jobImport, Request $request)
     {
         $jobImport->delete();
 
-        return redirect()->route('admin.job-import.index');
+        return $request->wantsJson()
+            ? new JsonResponse('Import Deleted', 200)
+            : redirect()->route('admin.job-import.index');
     }
 }
