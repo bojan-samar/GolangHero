@@ -124,7 +124,8 @@ class JobImportController extends Controller
      */
     public function destroy(JobImport $jobImport, Request $request)
     {
-        $jobImport->delete();
+        $jobImport->status = 0;
+        $jobImport->save();
 
         return $request->wantsJson()
             ? new JsonResponse('Import Deleted', 200)
