@@ -20,23 +20,12 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-//        $statuses = Company::query()->toBase() // toBase gives us an array
-//            ->selectRaw("count(case when status = 0 then 1 end) as inactive")
-//            ->selectRaw("count(case when status = 1 then 1 end) as active")
-//            ->first();
-
-        $statuses = Company::query()->selectRaw('count(*) as count, status')->groupBy('status')->get()->mapWithKeys(function ($item, $key) {
-            return [$item['status'] => $item['count']];
-        });
-
-
-
         $companies = Company::query()->filter()->paginate(50)->withQueryString();
         $companies->links = $companies->onEachSide(1)->links();
 
         return $request->wantsJson()
             ? new JsonResponse($companies, 200)
-            : Inertia::render('Admin/Company/Index', compact('companies', 'statuses'));
+            : Inertia::render('Admin/Company/Index', compact('companies'));
     }
 
     /**

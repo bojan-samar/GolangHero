@@ -54,11 +54,8 @@ Route::post('save-forum', [\App\Http\Controllers\ForumController::class,'saveFor
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum', 'admin']], function () {
     Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
     Route::delete('blog-photo/{slug}', [\App\Http\Controllers\Admin\BlogController::class,'destroyPhoto'])->name('blog-photo.destroy');
-    Route::resource('vehicle', App\Http\Controllers\Admin\VehicleController::class);
     Route::resource('application', App\Http\Controllers\Admin\ApplicationController::class);
-    Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
     Route::resource('job-import', App\Http\Controllers\Admin\JobImportController::class);
-    Route::delete('blog-photo/{slug}', [\App\Http\Controllers\Admin\BlogController::class,'destroyPhoto'])->name('blog-photo.destroy');
     Route::resource('company', App\Http\Controllers\Admin\CompanyController::class);
     Route::post('company-download-logo', [App\Http\Controllers\Admin\CompanyController::class, 'downloadLogo'])->name('company.download-logo');
 });
