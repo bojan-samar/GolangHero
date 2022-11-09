@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/inertia-vue3';
+    import { Link } from '@inertiajs/inertia-vue3';
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import TableMain from "@/Components/Table/Main.vue";
 import TableHeading from "@/Components/Table/Heading.vue";
@@ -10,7 +10,10 @@ import Paginator from "@/Components/Paginator.vue";
 
 defineProps({
     companies: Object,
+    sort: String,
+    direction: String,
 });
+
 </script>
 
 <template>
@@ -25,13 +28,20 @@ defineProps({
         <section class="max-w-4xl mx-auto mt-8">
             <table-main>
                 <template #heading>
-                    <table-heading>Name</table-heading>
+                    <table-heading :sort="sort" :direction="direction" column="name">Name</table-heading>
+                    <table-heading :sort="sort" :direction="direction" column="created_at">Created At</table-heading>
                 </template>
                 <template #body>
                     <table-row v-for="company in companies.data">
                         <table-cell>
                             <Link :href="route('admin.company.edit', company.id)">
                                 {{ company.name }}
+                            </Link>
+                        </table-cell>
+
+                        <table-cell>
+                            <Link :href="route('admin.company.edit', company.id)">
+                                {{ company.created_at }}
                             </Link>
                         </table-cell>
                     </table-row>

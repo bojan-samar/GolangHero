@@ -24,8 +24,11 @@ class JobImportController extends Controller
             ->filter()
             ->latest()->active()->paginate(50);
 
+        $sort = \request()->get('sort');
+        $direction = \request()->get('direction');
 
-        return Inertia::render('Admin/JobImport/Index', compact('jobs'));
+
+        return Inertia::render('Admin/JobImport/Index', compact('jobs', 'sort', 'direction'));
     }
 
     /**

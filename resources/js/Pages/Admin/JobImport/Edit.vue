@@ -235,7 +235,7 @@ const search = () => {
                                     </svg>
                                 </button>
                             </div>
-                            <div>
+                            <div class="mt-3 editable">
                                 <EditorContent :editor="state.editor"/>
                             </div>
                         </section>

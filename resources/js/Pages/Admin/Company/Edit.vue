@@ -48,7 +48,7 @@ const form = useForm({
     phone: props.company.phone,
     location: props.company.location,
     description: props.company.description,
-    status: props.company.status,
+    status: props.company.status ? true : false,
 });
 
 const store = () => {
@@ -60,7 +60,6 @@ const destroy = () => {
     Inertia.delete(route('admin.company.destroy', props.company.id))
 };
 </script>
-
 
 
 <template>
@@ -100,13 +99,13 @@ const destroy = () => {
                     <section class="grid md:grid-cols-2 gap-6 mt-4">
                         <div>
                             <InputLabel for="url" value="URL"/>
-                            <TextInput id="url" type="text" class="mt-1 block w-full" v-model="form.url" required/>
+                            <TextInput id="url" type="text" class="mt-1 block w-full" v-model="form.url"/>
                             <InputError :message="form.errors.url" class="mt-2"/>
                         </div>
 
                         <div>
                             <InputLabel for="location" value="Location"/>
-                            <TextInput id="location" type="text" class="mt-1 block w-full" v-model="form.location" required/>
+                            <TextInput id="location" type="text" class="mt-1 block w-full" v-model="form.location"/>
                             <InputError :message="form.errors.location" class="mt-2"/>
                         </div>
                     </section>
@@ -116,7 +115,8 @@ const destroy = () => {
                         <InputLabel for="body" value="Description"/>
                         <section>
                             <div v-if="state.editor" class="flex items-center mt-4">
-                                <button type="button" class="prose-button" @click="state.editor.chain().focus().undo().run()"
+                                <button type="button" class="prose-button"
+                                        @click="state.editor.chain().focus().undo().run()"
                                         :disabled="!state.editor.can().chain().focus().undo().run()">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 cursor-pointer"
                                          viewBox="0 0 512 512"><title>Arrow Undo</title>
@@ -196,11 +196,25 @@ const destroy = () => {
                                     </svg>
                                 </button>
                             </div>
-                            <div>
+                            <div class="editable mt-3">
                                 <EditorContent :editor="state.editor"/>
                             </div>
                         </section>
                         <InputError :message="form.errors.description" class="mt-2"/>
+                    </section>
+
+
+                    <section class="mt-6">
+                        <label for="default-toggle" class="switch toggle-input inline-flex relative items-center cursor-pointer">
+                            <input type="checkbox" value="" id="default-toggle" class="sr-only peer"
+                                   v-model="form.status">
+                            <span
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all duration-300 dark:border-gray-600 peer-checked:bg-blue-600"></span>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                <template v-if="form.status">Active</template>
+                                <template v-else>Inactive</template>
+                            </span>
+                        </label>
                     </section>
 
 

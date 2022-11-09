@@ -22,10 +22,12 @@ class CompanyController extends Controller
     {
         $companies = Company::query()->filter()->paginate(50)->withQueryString();
         $companies->links = $companies->onEachSide(1)->links();
+        $sort = $request->get('sort');
+        $direction = $request->get('direction');
 
         return $request->wantsJson()
             ? new JsonResponse($companies, 200)
-            : Inertia::render('Admin/Company/Index', compact('companies'));
+            : Inertia::render('Admin/Company/Index', compact('companies', 'sort','direction'));
     }
 
     /**
@@ -115,6 +117,7 @@ class CompanyController extends Controller
         $company->url = $request->get('url');
         $company->description = $request->get('description');
         $company->meta = $request->get('meta');
+        $company->status = $request->get('status');
         $company->save();
 
         return back()->with('flash.success', 'Company Updated');

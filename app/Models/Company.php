@@ -60,6 +60,11 @@ class Company extends Model
             $query = $query->where('status', $status);
         }
 
+        if ($sort = request()->get('sort')){
+            $direction = request()->get('direction') ?? 'asc';
+            $query = $query->orderBy($sort,$direction);
+        }
+
         return $query;
     }
 

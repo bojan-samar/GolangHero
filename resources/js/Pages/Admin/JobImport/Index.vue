@@ -11,6 +11,8 @@ import Paginator from "@/Components/Paginator.vue";
 
 let props = defineProps({
     jobs: Object,
+    sort: String,
+    direction: String,
 });
 
 const destroyJobImport = (jobId, index) => {
@@ -34,8 +36,8 @@ const destroyJobImport = (jobId, index) => {
             <section class="mt-8">
                 <TableMain>
                     <template #heading>
-                        <table-heading>Job</table-heading>
-                        <table-heading>Company</table-heading>
+                        <table-heading :sort="sort" :direction="direction" column="title">Job</table-heading>
+                        <table-heading :sort="sort" :direction="direction" column="company_name">Company</table-heading>
                         <table-heading></table-heading>
                     </template>
                     <template #body>
