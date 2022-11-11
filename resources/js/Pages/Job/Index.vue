@@ -16,8 +16,8 @@ defineProps({
 <template>
     <AppLayout>
         <Head>
-            <title>Best Trucking Jobs</title>
-            <meta name="description" content="Best trucking jobs">
+            <title>Golang Jobs. Find A Jobs Today</title>
+            <meta name="description" content="Browse through hundreds of good paying Golang jobs and start your career today.">
             <link rel="canonical" :href="canonicalUrl" />
         </Head>
 
