@@ -11,7 +11,12 @@ class ApplyController extends Controller
 {
     public function show($jobSlug)
     {
-        $job = Job::query()->select('slug', 'title')->where('slug', $jobSlug)->firstOrFail();
+        $job = Job::query()
+            ->select('slug', 'title', 'company_id')
+            ->where('slug', $jobSlug)
+            ->with('company:id,name')
+            ->firstOrFail();
+
         return Inertia::render('Apply/Show', compact('job'));
     }
 
@@ -32,8 +37,11 @@ class ApplyController extends Controller
         $application->name = $request->get('name');
         $application->email = $request->get('email');
         $application->phone = $request->get('phone');
+        $job->description = json_encode($request->get('description'));
         $application->save();
 
-        return back();
+        $application->load(['job']);
+
+        return Inertia::render('Apply/Success');
     }
 }

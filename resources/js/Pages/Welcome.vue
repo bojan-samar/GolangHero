@@ -10,6 +10,7 @@ defineProps({
     companyCount: Number,
 });
 
+
 </script>
 
 <template>
@@ -21,8 +22,14 @@ defineProps({
                   content="Browse through thousands of Golang jobs. Apply today and start your perfect career">
         </Head>
 
+        <component :is="'style'">
+            body{
+            background: #ffffff!important;
+            }
+        </component>
 
-        <section >
+
+        <section>
             <h1 class="max-w-3xl mx-auto text-5xl font-black text-center md:text-5xl lg:text-6xl mt-12">Biggest Golang Job Board</h1>
         </section>
 

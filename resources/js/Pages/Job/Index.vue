@@ -21,12 +21,6 @@ defineProps({
             <link rel="canonical" :href="canonicalUrl" />
         </Head>
 
-        <component :is="'style'">
-            body{
-            background: #f3f4f6;
-            }
-        </component>
-
         <section class="max-w-3xl mx-auto py-12 px-8">
             <SearchForm route-name="job.index"></SearchForm>
         </section>

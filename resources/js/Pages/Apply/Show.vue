@@ -28,14 +28,15 @@ onMounted(() => {
 
 const form = useForm({
     name: null,
-    jobSLug: props.job.slug,
+    jobSlug: props.job.slug,
     email: null,
     phone: null,
+    description: null,
 });
 
 const submit = () => {
     form.description = state.editor.getJSON();
-    form.post(this.route('apply.store'))
+    form.post(route('apply.store'))
 };
 
 </script>
@@ -55,7 +56,10 @@ const submit = () => {
         </component>
 
         <section class="max-w-3xl mx-auto py-12 px-8">
-            <form @submit.prevent="submit" class="card bg-white">
+
+            <h1 class="text-center text-lg font-medium">Applying for {{ job.title }} at {{ job.company.name }}</h1>
+
+            <form @submit.prevent="submit" class="card bg-white mt-5">
                 <div>
                     <InputLabel for="name" value="Name" required="true"/>
                     <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required />
@@ -169,7 +173,7 @@ const submit = () => {
 
 
                 <div>
-                    <PrimaryButton class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                    <PrimaryButton rel="nofollow" class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         Apply
                     </PrimaryButton>
                 </div>

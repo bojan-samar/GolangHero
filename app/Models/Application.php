@@ -20,4 +20,9 @@ class Application extends Model
             $model->uuid = Str::uuid();
         });
     }
+
+    public function job()
+    {
+        return $this->belongsTo(Job::class);
+    }
 }
