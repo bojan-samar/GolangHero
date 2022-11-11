@@ -49,7 +49,7 @@ class Company extends Model
         $search = request()->search;
         if ($search) {
             collect(explode(' ', $search))->each(function ($term, $key) use ($query) {
-                $term = '%'. $term .'%';
+                $term = "%$term%";
                 $query->where(function ($query) use ($term){
                     $query->where('name', 'LIKE', $term);
                 });

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class Application extends Model
@@ -18,6 +20,20 @@ class Application extends Model
         parent::boot();
         static::creating(function($model){
             $model->uuid = Str::uuid();
+        });
+    }
+
+    public function createdAtDateString(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            $date = null;
+            if ($attributes['created_at']){
+                $dateString = Carbon::parse($attributes['created_at'])->format('M d, Y');
+                $diffForHumans = Carbon::parse($attributes['created_at'])->diffForHumans();
+                $date = "$dateString ($diffForHumans)";
+            }
+
+            return $date;
         });
     }
 

@@ -17,7 +17,10 @@ class ApplicationController extends Controller
      */
     public function index()
     {
-        $applications = Application::query()->latest()->paginate(50);
+        $applications = Application::query()
+            ->latest()
+            ->paginate(50);
+        $applications->append('created_at_date_string');
         return Inertia::render('Admin/Application/Index', compact('applications'));
     }
 
