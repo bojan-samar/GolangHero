@@ -6,6 +6,16 @@ p{
     margin-bottom: 1.2rem;
 }
 
+ol{
+    @apply list-decimal;
+    margin-left: 1.25rem;
+}
+
+ul{
+    @apply list-disc;
+    margin-left: 1.25rem;
+}
+
 .card{
     @apply shadow p-4 rounded-xl;
 }

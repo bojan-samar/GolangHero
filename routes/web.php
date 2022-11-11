@@ -41,6 +41,7 @@ Route::middleware([
 Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
 Route::resource('company', App\Http\Controllers\CompanyController::class);
 Route::resource('job', App\Http\Controllers\JobController::class);
+Route::get('apply/{slug}', [\App\Http\Controllers\ApplyController::class,'show'])->name('apply.show');
 Route::post('apply', [\App\Http\Controllers\ApplyController::class,'store'])->name('apply.store');
 
 //Forum

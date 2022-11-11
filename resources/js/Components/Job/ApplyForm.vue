@@ -1,6 +1,6 @@
 <script setup>
-import {Link, useForm} from '@inertiajs/inertia-vue3';
-import AdminLayout from "@/Layouts/AdminLayout.vue";
+import {useForm} from '@inertiajs/inertia-vue3';
+
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';

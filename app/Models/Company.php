@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -73,6 +74,13 @@ class Company extends Model
     {
         return Attribute::get(function ($value, $attributes) {
             return isset($attributes['photo']) ? Storage::url( $attributes['photo']) : null;
+        });
+    }
+
+    public function createdAtDateString(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            return $attributes['created_at'] ? Carbon::parse($attributes['created_at'])->format('M d, Y') : null;
         });
     }
 

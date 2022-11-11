@@ -17,12 +17,19 @@ const props = defineProps({
 });
 
 onMounted(() => {
+    let description;
+    try {
+        description = JSON.parse(props.company.description);
+    } catch (error) {
+        description = null;
+    }
+
     state.editor = new Editor({
         editable: false,
         extensions: [
             StarterKit,
         ],
-        content: JSON.parse(props.job.data.description)
+        content: description
     })
 });
 
@@ -65,9 +72,9 @@ onMounted(() => {
             <EditorContent :editor="state.editor"/>
 
             <div class="mt-5">
-                <a href="#apply">
+                <Link :href="route('apply.show', job.data.slug)">
                     <PrimaryButton class="p-4"><span class="px-4 py-0.5 text-base">Apply</span></PrimaryButton>
-                </a>
+                </Link>
             </div>
         </section>
 

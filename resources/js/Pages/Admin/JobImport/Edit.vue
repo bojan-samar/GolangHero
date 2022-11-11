@@ -6,7 +6,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import ActionMessage from '@/Components/ActionMessage.vue';

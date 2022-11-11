@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Company;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -21,6 +22,7 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $companies = Company::query()->filter()->paginate(50)->withQueryString();
+        $companies->append('created_at_date_string');
         $companies->links = $companies->onEachSide(1)->links();
         $sort = $request->get('sort');
         $direction = $request->get('direction');

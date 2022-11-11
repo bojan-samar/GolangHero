@@ -41,7 +41,7 @@ defineProps({
 
                         <table-cell>
                             <Link :href="route('admin.company.edit', company.id)">
-                                {{ company.created_at }}
+                                {{ company.created_at_date_string }}
                             </Link>
                         </table-cell>
                     </table-row>
