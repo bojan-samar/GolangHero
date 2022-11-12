@@ -22,6 +22,7 @@ defineProps({
             <table-main>
                 <template #heading>
                     <table-heading :sort="sort" :direction="direction" column="name">Name</table-heading>
+                    <table-heading>Job</table-heading>
                     <table-heading :sort="sort" :direction="direction" column="created_at">Created At</table-heading>
                 </template>
                 <template #body>
@@ -30,6 +31,12 @@ defineProps({
                             <Link :href="route('admin.application.show', application.uuid)">
                                 {{ application.name }}
                             </Link>
+                        </table-cell>
+
+
+                        <table-cell>
+                            {{ application.job.title }}
+                            <div class="text-sm">{{ application.job.company.name }}</div>
                         </table-cell>
 
                         <table-cell>{{ application.created_at_date_string }}</table-cell>
