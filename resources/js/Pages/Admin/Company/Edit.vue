@@ -66,9 +66,9 @@ const destroy = () => {
     <AdminLayout title="Job Import Edit">
 
         <section class="max-w-4xl mx-auto flex justify-between">
-            <Link :href="route('admin.company.index')">
-                <SecondaryButton>Back</SecondaryButton>
-            </Link>
+<!--            <Link :href="route('admin.company.index')">-->
+<!--                <SecondaryButton>Back</SecondaryButton>-->
+<!--            </Link>-->
 
             <div>
                 <DangerButton @click="destroy">Delete</DangerButton>
