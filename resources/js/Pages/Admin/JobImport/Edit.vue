@@ -145,7 +145,7 @@ const search = () => {
                         <div>
                             <InputLabel for="type" value="Job Type" :required="true"/>
                             <div>{{ job.job_type }}</div>
-                            <select name="type" class="form-input pr-6" style="min-width: 150px" v-model="form.type">
+                            <select name="type" class="form-input pr-6" style="min-width: 150px" v-model="form.job_type">
                                 <option v-for="(value, key, index) in jobTypes" :value="key">{{ value }}</option>
                             </select>
                             <InputError :message="form.errors.job_type" class="mt-2"/>
