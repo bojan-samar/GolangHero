@@ -26,7 +26,7 @@ class Job extends Model
         '2' =>['text' => 'Pending Approval', 'css' => 'bg-green-200'],
     ];
 
-    public $job_types = [
+    public $jobTypes = [
         'FULL_TIME' => 'Full Time',
         'PART_TIME' => 'Part Time',
         'CONTRACTOR' => 'Contractor',

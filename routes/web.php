@@ -28,14 +28,16 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('welcome');
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+Route::middleware(['auth:sanctum'])->group(function () {
+//Create New Job
+    Route::get('job-create', [App\Http\Controllers\JobCreateController::class, 'index'])->name('job-create');
+    Route::post('job-create', [App\Http\Controllers\JobCreateController::class, 'store'])->name('job-create.store');
+    Route::view('company-create', 'job.create.company-create')->name('company-create');
+    Route::get('job-create/{slug}/details', [App\Http\Controllers\JobCreateController::class, 'details'])->name('job-create.details');
+    Route::get('job-create/{uuid}/review', [App\Http\Controllers\JobCreateController::class, 'review'])->name('job-create.review');
+    Route::get('job-create/{uuid}/design', [App\Http\Controllers\JobCreateController::class, 'design'])->name('job-create.design');
+    Route::get('job-create/{uuid}/pay', [App\Http\Controllers\JobCreateController::class, 'pay'])->name('job-create.pay');
+    Route::post('job-create-submit', [App\Http\Controllers\JobCreateController::class, 'submit'])->name('job-create.submit');
 });
 
 Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
@@ -60,3 +62,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::resource('company', App\Http\Controllers\Admin\CompanyController::class);
     Route::post('company-download-logo', [App\Http\Controllers\Admin\CompanyController::class, 'downloadLogo'])->name('company.download-logo');
 });
+
+
+

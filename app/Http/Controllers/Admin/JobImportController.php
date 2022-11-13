@@ -71,10 +71,13 @@ class JobImportController extends Controller
      */
     public function edit(JobImport $jobImport)
     {
+        $jobModel = new Job;
+        $types = $jobModel->jobTypes;
         $jobImport->load(['company']);
 
         return Inertia::render('Admin/JobImport/Edit', [
-            'job' => $jobImport
+            'job' => $jobImport,
+            'jobTypes' => $types
         ]);
     }
 
@@ -109,7 +112,7 @@ class JobImportController extends Controller
         $job->description = json_encode($request->get('description'));
         $job->salary_min = $request->get('salary_min');
         $job->salary_max = $request->get('salary_max');
-        $job->salary_type = $request->get('salary_type');
+        $job->type = $request->get('job_type');
         $job->status = 1;
         $job->order_by_date = $job->calculateOrderByDate();
         $job->save();
