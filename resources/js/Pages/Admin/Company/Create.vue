@@ -6,12 +6,10 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import ActionMessage from '@/Components/ActionMessage.vue';
-import DangerButton from '@/Components/DangerButton.vue';
-import {Inertia} from "@inertiajs/inertia";
 
 
 const props = defineProps({
@@ -25,54 +23,38 @@ const state = reactive({
 
 
 onMounted(() => {
-    let description;
-    try {
-        description = JSON.parse(props.company.description);
-    } catch (error) {
-        description = props.company.description;
-    }
-
     state.editor = new Editor({
         extensions: [
             StarterKit,
-        ],
-        content: description
+        ]
     })
 });
 
 const form = useForm({
-    _method: 'PUT',
     name: props.company.name,
     slug: props.company.slug,
-    url: props.company.url,
-    location: props.company.location,
-    description: props.company.description,
-    twitter: props.company.twitter,
-    status: props.company.status ? true : false,
+    url: null,
+    location: null,
+    description: null,
+    twitter: null,
+    status: null,
 });
 
 const store = () => {
     form.description = state.editor.getJSON();
-    form.post(route('admin.company.update', props.company.id))
+    form.post(route('admin.company.store'))
 };
 
-const destroy = () => {
-    Inertia.delete(route('admin.company.destroy', props.company.id))
-};
 </script>
 
 
 <template>
-    <AdminLayout title="Job Import Edit">
+    <AdminLayout title="Company Create Admin">
 
-        <section class="max-w-4xl mx-auto flex justify-between">
+        <section class="max-w-4xl mx-auto">
             <Link :href="route('admin.company.index')">
                 <SecondaryButton>Back</SecondaryButton>
             </Link>
-
-            <div>
-                <DangerButton @click="destroy">Delete</DangerButton>
-            </div>
         </section>
 
         <section class="max-w-4xl mx-auto">

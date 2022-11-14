@@ -25,8 +25,8 @@ class Company extends Model
     {
         parent::boot();
         static::creating(function($model){
-            $slug = Str::slug($model->name);
-            $model->slug = $slug;
+//            $slug = Str::slug($model->name);
+//            $model->slug = $slug;
         });
     }
 

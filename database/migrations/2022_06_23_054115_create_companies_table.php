@@ -22,6 +22,7 @@ class CreateCompaniesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('location')->nullable();
             $table->string('photo', 2048)->nullable();
+            $table->string('twitter')->nullable();
             $table->text('description')->nullable();
             $table->boolean('status')->default(0);
             $table->text('meta')->nullable();

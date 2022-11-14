@@ -270,10 +270,14 @@ const search = () => {
                     </div>
 
                     <div>
-                        <SecondaryButton
-                            @click="state.creatingCompany = !state.creatingCompany; state.newCompanyName = form.company_name">
-                            Create Company
-                        </SecondaryButton>
+<!--                        <SecondaryButton-->
+<!--                            @click="state.creatingCompany = !state.creatingCompany; state.newCompanyName = form.company_name">-->
+<!--                            Create Company-->
+<!--                        </SecondaryButton>-->
+
+                        <a target="_blank" :href="route('admin.company.create', {'name' : form.company_name})">
+                            <SecondaryButton>Create Company</SecondaryButton>
+                        </a>
                     </div>
                 </div>
 

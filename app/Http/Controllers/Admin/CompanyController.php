@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class CompanyController extends Controller
@@ -21,7 +22,7 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        $companies = Company::query()->filter()->paginate(50)->withQueryString();
+        $companies = Company::query()->latest()->filter()->paginate(50)->withQueryString();
         $companies->append('created_at_date_string');
         $companies->links = $companies->onEachSide(1)->links();
 
@@ -38,9 +39,16 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return Inertia::render('Admin/Company/Create');
+        $company = null;
+        if ($name = $request->get('name')){
+            $company = [
+                'name' => $name,
+                'slug' => Str::slug($name)
+            ];
+        }
+        return Inertia::render('Admin/Company/Create', compact('company'));
     }
 
     /**
@@ -52,17 +60,26 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'company_name' => 'required|string|min:2|max:191|unique:companies,name',
+            'name' => 'required|string|min:2|max:191',
+            'slug' => ['required','string', 'min:2', 'max:255', 'unique:companies,slug'],
+            'url' => 'nullable|string|min:2|max:191|unique:companies,url',
+            'location' => 'nullable|string|min:2|max:191',
+            'twitter' => 'nullable|string|min:2|max:191',
+            'description' => 'array',
+            'status' => 'required|boolean',
         ]);
 
         $company = new Company;
-        $company->name = $request->get('company_name');
-        $company->status = 1;
+        $company->name = $request->get('name');
+        $company->slug = $request->get('slug');
+        $company->url = $request->get('url');
+        $company->location = $request->get('location');
+        $company->twitter = $request->get('twitter');
+        $company->description = $request->get('description');
+        $company->status = $request->get('status');
         $company->save();
 
-        return $request->wantsJson()
-            ? new JsonResponse($company, 200)
-            : Inertia::render('Admin/Company/Index');
+        return redirect()->route('admin.company.index');
     }
 
     /**
@@ -103,9 +120,9 @@ class CompanyController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:2|max:191',
-            'slug' => 'required|string|min:2|max:191',
-            'url' => 'nullable|string|min:2|max:191',
-            'phone' => 'nullable|string|min:7|max:191',
+            'slug' => ['required','string', 'min:2', 'max:255', Rule::unique('companies')->ignore($company->id)],
+            'url' => 'nullable|string|min:2|max:255|unique:companies,url',
+            'twitter' => 'nullable|string|min:7|max:191',
             'location' => 'nullable|string|min:2|max:191',
             'status' => 'required|boolean',
             'meta' => 'nullable|array',
@@ -118,6 +135,7 @@ class CompanyController extends Controller
         $company->status = $request->get('status');
         $company->location = $request->get('location');
         $company->url = $request->get('url');
+        $company->twitter = $request->get('twitter');
         $company->description = $request->get('description');
         $company->meta = $request->get('meta');
         $company->status = $request->get('status');

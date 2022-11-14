@@ -15,7 +15,7 @@ import {Inertia} from "@inertiajs/inertia";
 
 const props = defineProps({
     company: Object,
-    jobTypes: Object,
+    types: Object,
 });
 
 const state = reactive({
@@ -39,7 +39,7 @@ const form = useForm({
     location: "Las Vegas",
     salary_min: 1,
     salary_max: 10,
-    type: props.job.job_type,
+    type: "FULL_TIME",
     remote: false,
 });
 
@@ -104,7 +104,7 @@ const store = () => {
                         <div>
                             <InputLabel for="type" value="Job Type" :required="true"/>
                             <select name="type" class="form-input pr-6" style="min-width: 150px" v-model="form.type">
-                                <option v-for="(value, key, index) in jobTypes" :value="key">{{ value }}</option>
+                                <option v-for="(value, key, index) in types" :value="key">{{ value }}</option>
                             </select>
                             <InputError :message="form.errors.type" class="mt-2"/>
                         </div>
