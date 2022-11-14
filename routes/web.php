@@ -28,7 +28,13 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('welcome');
 
+//Auth
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
 //Create New Job
     Route::get('job-create', [App\Http\Controllers\JobCreateController::class, 'index'])->name('job-create');
     Route::post('job-create', [App\Http\Controllers\JobCreateController::class, 'store'])->name('job-create.store');
