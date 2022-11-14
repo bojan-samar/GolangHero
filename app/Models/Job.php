@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -220,6 +222,32 @@ class Job extends Model
         }
 
         return $this->hasOne(JobSave::class)->where('user_id', $userId);
+    }
+
+    public function tweeted(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            $meta = $attributes['meta'] ? json_decode($attributes['meta'], true) : [];
+            if (Arr::has($meta, 'tweeted')){
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    public function createdAtDateString(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            $date = null;
+            if ($attributes['created_at']){
+                $dateString = Carbon::parse($attributes['created_at'])->format('M d, Y');
+                $diffForHumans = Carbon::parse($attributes['created_at'])->diffForHumans();
+                $date = "$dateString ($diffForHumans)";
+            }
+
+            return $date;
+        });
     }
 
     function applications(){

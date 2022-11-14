@@ -55,9 +55,11 @@ Route::post('save-forum', [\App\Http\Controllers\ForumController::class,'saveFor
 
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum', 'admin']], function () {
+    Route::resource('application', App\Http\Controllers\Admin\ApplicationController::class);
     Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
     Route::delete('blog-photo/{slug}', [\App\Http\Controllers\Admin\BlogController::class,'destroyPhoto'])->name('blog-photo.destroy');
-    Route::resource('application', App\Http\Controllers\Admin\ApplicationController::class);
+    Route::resource('job', App\Http\Controllers\Admin\JobController::class);
+    Route::get('job-tweet/{slug}', [\App\Http\Controllers\Admin\JobController::class,'tweet'])->name('job.tweet');
     Route::resource('job-import', App\Http\Controllers\Admin\JobImportController::class);
     Route::resource('company', App\Http\Controllers\Admin\CompanyController::class);
     Route::post('company-download-logo', [App\Http\Controllers\Admin\CompanyController::class, 'downloadLogo'])->name('company.download-logo');
