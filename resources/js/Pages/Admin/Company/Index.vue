@@ -1,5 +1,5 @@
 <script setup>
-    import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import TableMain from "@/Components/Table/Main.vue";
 import TableHeading from "@/Components/Table/Heading.vue";
@@ -7,6 +7,7 @@ import TableRow from "@/Components/Table/Row.vue";
 import TableCell from "@/Components/Table/Cell.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Paginator from "@/Components/Paginator.vue";
+import SearchForm from "@/Components/SearchForm.vue";
 
 defineProps({
     companies: Object,
@@ -23,6 +24,10 @@ defineProps({
             <Link :href="route('admin.company.create')">
                 <PrimaryButton>New</PrimaryButton>
             </Link>
+        </section>
+
+        <section class="max-w-4xl mx-auto mt-5">
+            <SearchForm route-name="admin.company.index"></SearchForm>
         </section>
 
         <section class="max-w-4xl mx-auto mt-5">

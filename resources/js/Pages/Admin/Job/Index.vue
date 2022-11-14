@@ -6,8 +6,6 @@ import TableHeading from "@/Components/Table/Heading.vue";
 import TableRow from "@/Components/Table/Row.vue";
 import TableCell from "@/Components/Table/Cell.vue";
 import SearchForm from "@/Components/SearchForm.vue";
-import SecondaryButton from '@/Components/SecondaryButton.vue';
-import DangerButton from '@/Components/DangerButton.vue';
 import Paginator from "@/Components/Paginator.vue";
 
 
