@@ -16,11 +16,11 @@ defineProps({
 
 onMounted(() => {
     //Load Google Analytics
-    // let googleAnalyticsTag = usePage().props.value.tracking.googleAnalytics;
-    // if (googleAnalyticsTag){
-    //     gtag('js', new Date());
-    //     gtag('config', `${googleAnalyticsTag}`);
-    // }
+    let googleAnalyticsTag = usePage().props.value.tracking.googleAnalytics;
+    if (googleAnalyticsTag){
+        gtag('js', new Date());
+        gtag('config', `${googleAnalyticsTag}`);
+    }
 });
 
 const showingNavigationDropdown = ref(false);
