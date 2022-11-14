@@ -64,7 +64,7 @@ class CompanyController extends Controller
             'slug' => ['required','string', 'min:2', 'max:255', 'unique:companies,slug'],
             'url' => 'nullable|string|min:2|max:191|unique:companies,url',
             'location' => 'nullable|string|min:2|max:191',
-            'twitter' => 'nullable|string|min:2|max:191',
+            'twitter' => 'nullable|string|min:1|max:191',
             'description' => 'array',
             'status' => 'required|boolean',
         ]);
@@ -122,7 +122,7 @@ class CompanyController extends Controller
             'name' => 'required|string|min:2|max:191',
             'slug' => ['required','string', 'min:2', 'max:255', Rule::unique('companies')->ignore($company->id)],
             'url' => 'nullable|string|min:2|max:255|unique:companies,url',
-            'twitter' => 'nullable|string|min:7|max:191',
+            'twitter' => 'nullable|string|min:1|max:191',
             'location' => 'nullable|string|min:2|max:191',
             'status' => 'required|boolean',
             'meta' => 'nullable|array',
