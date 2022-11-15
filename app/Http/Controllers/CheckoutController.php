@@ -56,7 +56,6 @@ class CheckoutController extends Controller
         $order->processor = 'stripe';
         $order->processor_id = $request->get('payment_intent');
         $order->total = 29900;
-        $order->order_by_date = now();
         $order->save();
 
         return Inertia::render('Checkout/ThankYou');
