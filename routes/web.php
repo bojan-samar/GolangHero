@@ -24,6 +24,10 @@ use Inertia\Inertia;
 //    ]);
 //});
 
+Route::get('checkout/{slug}', [App\Http\Controllers\CheckoutController::class, 'checkout'])->name('checkout');
+Route::get('thank-you/{slug}', [App\Http\Controllers\CheckoutController::class, 'thankYou'])->name('thank-you');
+
+
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('welcome');

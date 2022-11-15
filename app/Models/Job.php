@@ -258,6 +258,10 @@ class Job extends Model
         return $this->belongsTo(Company::class,'company_id','id');
     }
 
+    function order(){
+        return $this->hasOne(Order::class);
+    }
+
 
     function user(){
         return $this->belongsTo(User::class,'user_id', 'id');

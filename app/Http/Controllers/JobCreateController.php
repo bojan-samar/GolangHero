@@ -112,6 +112,8 @@ class JobCreateController extends Controller
         $job->location = $request->location;
         $job->description = json_encode($request->description);
         $job->save();
+
+        return redirect()->route('checkout', $job->slug);
     }
 
     protected function storeDetail($request)

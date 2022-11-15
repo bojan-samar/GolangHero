@@ -28,6 +28,8 @@ defineProps({
             }
         </component>
 
+        <Link :href="route('checkout', 'purchasing-agent-I2CNgG')">Checkout</Link>
+
 
         <section>
             <h1 class="max-w-3xl mx-auto text-5xl font-black text-center md:text-5xl lg:text-6xl mt-12">Biggest Golang Job Board</h1>
