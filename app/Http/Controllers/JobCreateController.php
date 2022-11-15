@@ -90,7 +90,6 @@ class JobCreateController extends Controller
             'url' => 'nullable|string|min:1|max:191',
             'remote' => 'required|boolean',
             'location' => 'nullable|string|min:1|max:191',
-            'apply_url' => 'required|string|min:1|max:800',
         ]);
 
         $company = Company::query()->where('slug', $request->get('company_slug'))->first();
