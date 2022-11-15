@@ -1,1 +1,0 @@
-import{_ as a}from"./AppLayout.fb21e895.js";import{o as t,c as e,w as o,a as s}from"./app.f5d550f2.js";import"./Banner.addc4f07.js";const c=s("div",{class:"py-12 max-w-4xl mx-auto"}," Success ",-1),u={__name:"ThankYou",setup(_){return(r,m)=>(t(),e(a,{title:"Thank You"},{default:o(()=>[c]),_:1}))}};export{u as default};

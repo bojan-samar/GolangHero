@@ -33,12 +33,12 @@ onMounted(() => {
 
 const form = useForm({
     company_slug: props.company.slug,
-    title: "Golang Developer",
-    apply_url: "https://hellocryptojobs.com/job/agile-release-and-change-manager-dnsoPw",
+    title: null,
+    apply_url: null,
     description: null,
-    location: "Las Vegas",
-    salary_min: 1,
-    salary_max: 10,
+    location: null,
+    salary_min: null,
+    salary_max: null,
     type: "FULL_TIME",
     remote: false,
 });
