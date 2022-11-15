@@ -47,6 +47,7 @@ class CheckoutController extends Controller
         }
 
         $job->status = true;
+        $job->order_by_date = now();
         $job->save();
 
         $order = new Order;
