@@ -25,7 +25,7 @@ class CheckoutController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $intent = $stripe->paymentIntents->create(
             [
-                'amount' => 9900,
+                'amount' => 9999,
                 'currency' => 'usd',
                 'automatic_payment_methods' => ['enabled' => true],
             ]
@@ -34,8 +34,9 @@ class CheckoutController extends Controller
         $clientSecret = $intent->client_secret;
         $stripeKey = env('STRIPE_KEY');
         $returnUrl = route('thank-you', $jobSlug);
+        $job = $job->only(['title']);
 
-        return Inertia::render('Checkout/Index', compact('clientSecret', 'stripeKey', 'returnUrl'));
+        return Inertia::render('Checkout/Index', compact('clientSecret', 'stripeKey', 'returnUrl', 'job'));
     }
 
     public function thankYou(Request $request, $jobSlug)

@@ -7,6 +7,7 @@ const props = defineProps({
     clientSecret: String,
     stripeKey: String,
     returnUrl: String,
+    job: Object,
 });
 
 
@@ -17,23 +18,18 @@ const state = reactive({
 })
 
 const stripeInit = () => {
-    let stripeScript = document.createElement('script')
-    stripeScript.setAttribute('src', 'https://js.stripe.com/v3/')
-    document.head.appendChild(stripeScript)
+    state.stripe = Stripe(props.stripeKey);
+    const options = {
+        clientSecret: props.clientSecret,
+    };
 
-    setTimeout(()=> {
-        state.stripe = Stripe(props.stripeKey);
-        const options = {
-            clientSecret: props.clientSecret,
-        };
+    // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 3
+    state.elements = state.stripe.elements(options);
 
-        // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 3
-        state.elements = state.stripe.elements(options);
-
-        // Create and mount the Payment Element
-        const paymentElement = state.elements.create('payment');
-        paymentElement.mount('#payment-element');
-    }, 200)
+    // Create and mount the Payment Element
+    const paymentElement = state.elements.create('payment');
+    paymentElement.mount('#payment-element');
+    return null;
 };
 
 const stripeSubmit = async () => {
@@ -63,7 +59,12 @@ const stripeSubmit = async () => {
 }
 
 onMounted(() => {
-    stripeInit()
+    let stripeScript = document.createElement('script')
+    stripeScript.setAttribute('src', 'https://js.stripe.com/v3/')
+    document.head.appendChild(stripeScript)
+    stripeScript.onload = function() {
+        stripeInit()
+    };
 });
 
 </script>
@@ -73,6 +74,12 @@ onMounted(() => {
 
         <div class="py-12 max-w-4xl mx-auto">
             <form @submit.prevent="stripeSubmit" id="payment-form" class="card bg-white" data-secret="">
+                <h1 class="text-center font-bold text-lg mb-4">Checkout</h1>
+                <div>
+                    <div>Job: {{ job.title }}</div>
+                    <div>Total: $99.99</div>
+                </div>
+
                 <div id="payment-element">
                     <!-- Elements will create form elements here -->
                 </div>
