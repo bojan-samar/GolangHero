@@ -44,7 +44,9 @@ class CheckoutController extends Controller
         $job = Job::query()->where('slug', $jobSlug)->with('order')->firstOrFail();
         //Check if order already in database for this job. Prevents duplicate orders if someone refreshes the page.
         if ($job->order){
-            return Inertia::render('Checkout/ThankYou');
+            return Inertia::render('Checkout/ThankYou', [
+                'slug' => $jobSlug
+            ]);
         }
 
         $job->status = true;
@@ -59,6 +61,8 @@ class CheckoutController extends Controller
         $order->total = 29900;
         $order->save();
 
-        return Inertia::render('Checkout/ThankYou');
+        return Inertia::render('Checkout/ThankYou', [
+            'slug' => $jobSlug
+        ]);
     }
 }

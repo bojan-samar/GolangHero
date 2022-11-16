@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\JobResource;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\JobAlert;
 use App\Models\Vehicle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,4 +32,5 @@ class MiscController extends Controller
 
         return Inertia::render('Welcome', compact('jobs','jobsTotalCount','companyCount'));
     }
+
 }

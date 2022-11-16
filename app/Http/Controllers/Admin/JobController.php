@@ -87,7 +87,7 @@ class JobController extends Controller
      */
     public function destroy(Job $job)
     {
-        //
+        $job->delete();
     }
 
     public function tweet($slug)

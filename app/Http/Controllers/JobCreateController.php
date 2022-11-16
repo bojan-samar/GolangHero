@@ -5,12 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\Order;
-use App\Rules\QuillInputRule;
 use Illuminate\Http\Request;
 use \App\Http\Traits\JobTrait;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 
 class JobCreateController extends Controller
@@ -34,7 +31,11 @@ class JobCreateController extends Controller
             $companies = Company::query()->filter()->paginate(50);
         }
 
-        return Inertia::render('JobCreate/Index', compact( 'companies'));
+        $drafts = Job::query()
+            ->select('title', 'slug')
+            ->where('user_id', auth()->user()->id)->draft()->get();
+
+        return Inertia::render('JobCreate/Index', compact( 'companies', 'drafts'));
     }
 
     public function details(Request $request, $companySlug)

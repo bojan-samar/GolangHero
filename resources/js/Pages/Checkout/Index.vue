@@ -80,7 +80,7 @@ onMounted(() => {
                     <div>Total: $99.99</div>
                 </div>
 
-                <div id="payment-element">
+                <div id="payment-element" class="mt-5">
                     <!-- Elements will create form elements here -->
                 </div>
 

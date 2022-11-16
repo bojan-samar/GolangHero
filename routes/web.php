@@ -27,6 +27,9 @@ use Inertia\Inertia;
 Route::get('checkout/{slug}', [App\Http\Controllers\CheckoutController::class, 'checkout'])->name('checkout');
 Route::get('thank-you/{slug}', [App\Http\Controllers\CheckoutController::class, 'thankYou'])->name('thank-you');
 
+Route::get('alert', [App\Http\Controllers\JobAlertController::class, 'index'])->name('alert.index');
+Route::post('alert', [App\Http\Controllers\JobAlertController::class, 'store'])->name('alert.store');
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -45,9 +48,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::view('company-create', 'job.create.company-create')->name('company-create');
     Route::get('job-create/{slug}/details', [App\Http\Controllers\JobCreateController::class, 'details'])->name('job-create.details');
     Route::get('job-create/{uuid}/review', [App\Http\Controllers\JobCreateController::class, 'review'])->name('job-create.review');
-    Route::get('job-create/{uuid}/design', [App\Http\Controllers\JobCreateController::class, 'design'])->name('job-create.design');
-    Route::get('job-create/{uuid}/pay', [App\Http\Controllers\JobCreateController::class, 'pay'])->name('job-create.pay');
-    Route::post('job-create-submit', [App\Http\Controllers\JobCreateController::class, 'submit'])->name('job-create.submit');
 });
 
 Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
