@@ -41,8 +41,18 @@ const destroy = () => {
 
         <section v-if="application.tracking" class="max-w-xl mx-auto mt-10 card bg-white">
             <div v-if="application.tracking.utm">
-                <h2 class="font-bold mb-2">UTM Params</h2>
+                <h2 class="font-bold mb-1">UTM Params</h2>
                 <div v-for="(value, key, index) in application.tracking.utm" :value="value">{{ value }}</div>
+            </div>
+
+            <div v-if="application.tracking.referer" class="mt-5">
+                <h2 class="font-bold">Referer</h2>
+                <div>{{ application.tracking.referer }}</div>
+            </div>
+
+            <div v-if="application.tracking.referral" class="mt-5">
+                <h2 class="font-bold">Referral</h2>
+                <div>{{ application.tracking.referral }}</div>
             </div>
         </section>
     </AdminLayout>

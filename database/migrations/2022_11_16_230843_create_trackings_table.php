@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('trackable_id');
             $table->string('trackable_type');
-            $table->text('utm');
+            $table->text('utm')->nullable();
+            $table->string('referral')->nullable();
+            $table->string('referer')->nullable();
             $table->timestamps();
         });
     }

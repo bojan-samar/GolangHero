@@ -10,11 +10,9 @@ class Tracking extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['utm'];
+    protected $fillable = ['utm', 'referral', 'referer'];
 
-    protected $casts = [
-        'utm' => 'array'
-    ];
+    protected $casts = ['utm' => 'array'];
 
     public function getTracking()
     {

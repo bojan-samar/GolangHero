@@ -41,7 +41,7 @@ class TrackingMiddleware
         }
 
         if($referral = $request->referral){
-            if (! $tracking->has('utm')){
+            if (! $tracking->has('referral')){
                 $tracking->put('referral', $referral);
             }
         }
