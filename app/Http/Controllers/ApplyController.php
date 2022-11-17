@@ -47,8 +47,8 @@ class ApplyController extends Controller
         $tracking = $trackingModel->getTracking();
         if ($tracking){
             $tracking = new Tracking($tracking);
+            $application->tracking()->save($tracking);
         }
-        $application->tracking()->save($tracking);
 
         return Inertia::render('Apply/Success');
     }
