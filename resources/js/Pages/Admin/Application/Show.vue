@@ -39,7 +39,7 @@ const destroy = () => {
             <div class="mt-1"><b>Company:</b> {{ application.job.company.name }}</div>
         </section>
 
-        <section class="max-w-xl mx-auto mt-10 card bg-white">
+        <section v-if="application.tracking" class="max-w-xl mx-auto mt-10 card bg-white">
             <div v-if="application.tracking.utm">
                 <h2 class="font-bold mb-2">UTM Params</h2>
                 <div v-for="(value, key, index) in application.tracking.utm" :value="value">{{ value }}</div>
