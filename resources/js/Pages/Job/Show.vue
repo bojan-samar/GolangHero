@@ -40,6 +40,9 @@ onMounted(() => {
         <Head>
             <title>{{ job.data.title }}</title>
             <meta name="description" :content="job.data.title">
+            <meta name="twitter:card" content="summary">
+            <meta name="twitter:title" :content="job.data.title">
+            <meta name="twitter:description" :content="job.data.title">
         </Head>
 
         <component :is="'style'">
