@@ -28,7 +28,7 @@ class ApplyController extends Controller
             'name' => 'required|string|min:5|max:191',
             'jobSlug' => 'required|string|min:5|max:191',
             'email' => 'required|email',
-            'description' => 'required|array|min:2',
+            'resume' => 'required|array|min:2',
         ]);
 
         $job = Job::query()->where('slug', $request->get('jobSlug'))->firstOrFail();
