@@ -100,7 +100,7 @@ class JobController extends Controller
         $company_name = $company->twitter ? '@' . $company->twitter : $company->name;
         $hashtags = Arr::shuffle(["#golang", "#golangjobs", "#remotework", "#remotejobs", "#wfh", "#softwareengineer"]);
         $twitter_text = rawurlencode($company_name .' is looking for a ' . $job->title . ' - ' . implode(' ', $hashtags));
-        $url = rawurlencode('https://golanghero.com/job/' . $job->slug);
+        $url = rawurlencode("https://golanghero.com/job/$job->slug?utm_source=twitter");
         $twitter_url = 'https://twitter.com/intent/tweet?text=' . $twitter_text .'&url='. $url;
 
         return redirect($twitter_url);
