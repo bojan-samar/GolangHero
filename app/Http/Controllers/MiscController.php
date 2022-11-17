@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\JobResource;
+use App\Models\Application;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\JobAlert;
+use App\Models\Tracking;
 use App\Models\Vehicle;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 

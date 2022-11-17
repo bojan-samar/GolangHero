@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Application;
 use App\Models\Job;
+use App\Models\Tracking;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -37,10 +38,17 @@ class ApplyController extends Controller
         $application->name = $request->get('name');
         $application->email = $request->get('email');
         $application->phone = $request->get('phone');
-        $job->description = json_encode($request->get('description'));
+        $application->description = json_encode($request->get('description'));
         $application->save();
 
-        $application->load(['job']);
+        $application->job = $job;
+
+        $trackingModel = new Tracking;
+        $tracking = $trackingModel->getTracking();
+        if ($tracking){
+            $tracking = new Tracking($tracking);
+        }
+        $application->tracking()->save($tracking);
 
         return Inertia::render('Apply/Success');
     }

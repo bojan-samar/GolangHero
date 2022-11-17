@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::create('trackings', function (Blueprint $table) {
             $table->id();
-            $table->uuid('uuid')->unique();
-            $table->foreignId('job_id')->constrained('jobs', 'id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
-            $table->text('description');
+            $table->string('trackable_id');
+            $table->string('trackable_type');
+            $table->text('utm');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applications');
+        Schema::dropIfExists('trackings');
     }
 };

@@ -41,4 +41,9 @@ class Application extends Model
     {
         return $this->belongsTo(Job::class);
     }
+
+    public function tracking()
+    {
+        return $this->morphOne(Tracking::class, 'trackable');
+    }
 }
