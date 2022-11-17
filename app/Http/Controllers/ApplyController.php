@@ -38,7 +38,7 @@ class ApplyController extends Controller
         $application->name = $request->get('name');
         $application->email = $request->get('email');
         $application->phone = $request->get('phone');
-        $application->description = json_encode($request->get('description'));
+        $application->resume = json_encode($request->get('resume'));
         $application->save();
 
         $application->job = $job;

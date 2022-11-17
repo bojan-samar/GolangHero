@@ -31,11 +31,11 @@ const form = useForm({
     jobSlug: props.job.slug,
     email: null,
     phone: null,
-    description: null,
+    resume: null,
 });
 
 const submit = () => {
-    form.description = state.editor.getJSON();
+    form.resume = state.editor.getJSON();
     form.post(route('apply.store'))
 };
 
@@ -168,7 +168,7 @@ const submit = () => {
                             <EditorContent :editor="state.editor"/>
                         </div>
                     </div>
-                    <InputError :message="form.errors.description" class="mt-2"/>
+                    <InputError :message="form.errors.resume" class="mt-2"/>
                 </div>
 
 
