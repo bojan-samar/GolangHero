@@ -39,6 +39,8 @@ class WorkerSkillController extends Controller
 
     public function destroy($uuid)
     {
+        WorkerSkill::where('uuid', $uuid)->delete();
 
+        return back();
     }
 }
