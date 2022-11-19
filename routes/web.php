@@ -35,6 +35,11 @@ Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('welcome');
 
+//Account
+Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => ['auth:sanctum']], function () {
+    Route::resource('worker', App\Http\Controllers\Account\WorkerController::class);
+});
+
 //Auth
 Route::middleware(['auth:sanctum'])->group(function () {
 

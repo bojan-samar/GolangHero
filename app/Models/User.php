@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Account\Worker;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Laravel\Cashier\Billable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -101,5 +101,10 @@ class User extends Authenticatable
         return $this->profile_photo_path
             ? Storage::disk($this->profilePhotoDisk())->url($this->profile_photo_path)
             : asset('files/icons/avatar.svg');
+    }
+
+    public function worker()
+    {
+        return $this->hasOne(Worker::class);
     }
 }
