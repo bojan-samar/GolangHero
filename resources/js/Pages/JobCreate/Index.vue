@@ -36,10 +36,12 @@ defineProps({
 
             <div class="text-center" v-if="! companies.data.length">
                 <div class="mb-2">Nothing Found!!!</div>
+            </div>
+
+            <div class="mt-5 text-center">
                 <Link :href="route('job-create.company.create')">
                     <PrimaryButton>Create New Company</PrimaryButton>
                 </Link>
-
             </div>
         </section>
 
