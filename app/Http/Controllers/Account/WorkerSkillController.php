@@ -37,6 +37,25 @@ class WorkerSkillController extends Controller
         return back();
     }
 
+    public function updateSocials(Request $request)
+    {
+        $request->validate([
+            'github' => 'required|string|min:1|max:255',
+            'website' => 'required|string|min:1|max:255',
+            'twitter' => 'required|string|min:1|max:255',
+            'linkedin' => 'required|string|min:1|max:255',
+        ]);
+
+        $worker = Worker::where('user_id', auth()->user()->id)->first();
+        $worker->github = $request->get('github');
+        $worker->website = $request->get('website');
+        $worker->twitter = $request->get('twitter');
+        $worker->linkedin = $request->get('linkedin');
+        $worker->save();
+
+        return back();
+    }
+
     public function destroy($uuid)
     {
         WorkerSkill::where('uuid', $uuid)->delete();
