@@ -42,13 +42,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-//Create New Job
+    //Create New Job
     Route::get('job-create', [App\Http\Controllers\JobCreateController::class, 'index'])->name('job-create');
     Route::post('job-create', [App\Http\Controllers\JobCreateController::class, 'store'])->name('job-create.store');
-    Route::view('company-create', 'job.create.company-create')->name('company-create');
+    Route::get('/job-create-company-create', function () {
+        return Inertia::render('JobCreate/CompanyCreate');
+    })->name('job-create.company.create');
+    Route::post('job-create.company.store', [App\Http\Controllers\JobCreateController::class, 'companyStore'])->name('job-create.company.store');
+
     Route::get('job-create/{slug}/details', [App\Http\Controllers\JobCreateController::class, 'details'])->name('job-create.details');
     Route::get('job-create/{uuid}/review', [App\Http\Controllers\JobCreateController::class, 'review'])->name('job-create.review');
+
+
 });
+
 
 Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
 Route::resource('company', App\Http\Controllers\CompanyController::class);
@@ -61,11 +68,10 @@ Route::resource('forum', \App\Http\Controllers\ForumController::class);
 Route::post('store-reply', [\App\Http\Controllers\ForumController::class,'storeReply']);
 Route::post('save-forum', [\App\Http\Controllers\ForumController::class,'saveForum']);
 
-
-
 //Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanctum', 'admin']], function () {
     Route::resource('application', App\Http\Controllers\Admin\ApplicationController::class);
+    Route::resource('category', App\Http\Controllers\Admin\CategoryController::class);
     Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
     Route::delete('blog-photo/{slug}', [\App\Http\Controllers\Admin\BlogController::class,'destroyPhoto'])->name('blog-photo.destroy');
     Route::resource('job', App\Http\Controllers\Admin\JobController::class);

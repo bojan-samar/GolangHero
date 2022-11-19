@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Helpers\Helpers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Arr;
@@ -25,6 +24,12 @@ class Job extends Model
         '0' =>['text' => 'Draft', 'css' => 'bg-red-200'],
         '1' =>['text' => 'Active', 'css' => 'bg-green-200'],
         '2' =>['text' => 'Pending Approval', 'css' => 'bg-green-200'],
+    ];
+
+    public $categories = [
+        '1' =>['text' => 'Draft', 'css' => 'bg-red-200'],
+        '2' =>['text' => 'Active', 'css' => 'bg-green-200'],
+        '3' =>['text' => 'Pending Approval', 'css' => 'bg-green-200'],
     ];
 
     public $jobTypes = [
@@ -251,6 +256,10 @@ class Job extends Model
 
     function applications(){
         return $this->hasMany(Application::class);
+    }
+
+    function category(){
+        return $this->belongsTo(Category::class);
     }
 
     function company(){

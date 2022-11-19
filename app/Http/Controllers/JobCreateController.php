@@ -17,12 +17,14 @@ class JobCreateController extends Controller
 //    public function __construct()
 //    {
 //        $this->middleware(function ($request, $next) {
-//            if (\auth()->user()->credits < 1){
-//                return redirect()->route('pricing')->with('error', 'Oops, Please purchase a job package first.');
+//            if (auth()->guest()){
+//                session()->put('url.intended', url()->current());
+//                return redirect('/login')->with('flash.danger', 'Login or register first to post a job.');
 //            }
 //            return $next($request);
 //        });
 //    }
+
 
     public function index()
     {
@@ -312,6 +314,30 @@ class JobCreateController extends Controller
         }
 
         return redirect()->route('job.success', $job->slug);
+    }
+
+    public function companyStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|min:2|max:191',
+            'url' => 'nullable|string|min:2|max:191|unique:companies,url',
+            'location' => 'nullable|string|min:2|max:191',
+            'twitter' => 'nullable|string|min:1|max:191',
+            'description' => 'array',
+        ]);
+
+        $name = $request->get('name');
+        $company = new Company;
+        $company->name = $name;
+        $company->slug = Str::slug($name);
+        $company->url = $request->get('url');
+        $company->location = $request->get('location');
+        $company->twitter = $request->get('twitter');
+        $company->description = $request->get('description');
+        $company->status = 1;
+        $company->save();
+
+        return redirect()->route('job-create', ['search' => $name]);
     }
 
 }

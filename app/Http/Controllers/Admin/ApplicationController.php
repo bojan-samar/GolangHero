@@ -56,6 +56,7 @@ class ApplicationController extends Controller
     public function show(Application $application)
     {
         $application->load(['job.company', 'tracking']);
+
         return Inertia::render('Admin/Application/Show', compact('application'));
     }
 

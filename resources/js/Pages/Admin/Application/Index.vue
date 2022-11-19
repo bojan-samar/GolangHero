@@ -5,7 +5,6 @@ import TableMain from "@/Components/Table/Main.vue";
 import TableHeading from "@/Components/Table/Heading.vue";
 import TableRow from "@/Components/Table/Row.vue";
 import TableCell from "@/Components/Table/Cell.vue";
-import SecondaryButton from '@/Components/SecondaryButton.vue';
 import Paginator from "@/Components/Paginator.vue";
 
 defineProps({
