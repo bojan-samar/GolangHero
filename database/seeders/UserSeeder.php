@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => 'Superadmin',
+                'username' => "superadmin",
                 'uuid' => 'dd04133a-7d52-4ceb-92e2-00518873f792',
                 'email' => 'superadmin@app.com',
                 'email_verified_at' => now(),
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
 
             [
                 'name' => 'Admin',
+                'username' => "admin",
                 'uuid' => Str::uuid(),
                 'email' => 'admin@app.com',
                 'email_verified_at' => now(),
@@ -43,6 +45,7 @@ class UserSeeder extends Seeder
 
             [
                 'name' => 'Subscriber',
+                'username' => "subscriber",
                 'uuid' => Str::uuid(),
                 'email' => 'subscriber@app.com',
                 'email_verified_at' => now(),
@@ -50,19 +53,7 @@ class UserSeeder extends Seeder
                 'role' => 'subscriber',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
-
-            [
-                'name' => 'Ryan',
-                'uuid' => Str::uuid(),
-                'email' => 'davidsonryan@proton.me',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'role' => 'superadmin',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-
+            ]
         ]);
     }
 }

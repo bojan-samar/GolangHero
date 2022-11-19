@@ -17,7 +17,7 @@ class CreateWorkerSkillsTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->foreignId('worker_id')->constrained();
-            $table->string('skill');
+            $table->string('name');
             $table->unsignedTinyInteger('experience');
             $table->timestamps();
         });

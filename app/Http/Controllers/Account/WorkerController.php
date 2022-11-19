@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Worker;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class WorkerController extends Controller
 {
@@ -16,13 +17,12 @@ class WorkerController extends Controller
     public function index()
     {
         $user = auth()->user()->load([ 'worker.employments', 'worker.skills']);
-        dd($user);
-        if (! $user->worker){
-            return redirect()->route('account.worker.create');
 
+        if (! $user->worker){
+            return Inertia::render('Account/Worker/Create');
         }
 
-        return view('account.worker.index', compact('user'));
+        return Inertia::render('Account/Worker/Index', compact('user'));
     }
 
     /**
