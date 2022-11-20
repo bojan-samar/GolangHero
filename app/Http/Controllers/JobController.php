@@ -99,8 +99,7 @@ class JobController extends Controller
 
         $similarJobs = DB::table('jobs')
             ->select('*')
-            ->selectRaw("MATCH (`title`) AGAINST ('". $job->title ."' IN NATURAL LANGUAGE MODE) AS score")
-//            ->whereFullText('title', 'python manager')
+            ->selectRaw("MATCH (`title`) AGAINST ('". $jobOriginal->title ."' IN NATURAL LANGUAGE MODE) AS score")
             ->where([
                 ['company_id','!=', $jobOriginal->company->id],
                 ['status',1],
@@ -110,8 +109,13 @@ class JobController extends Controller
             ->limit(5)
             ->get();
 
+        $secondJob = null;
+        if ($similarJobs->count()){
+            $secondJob = $similarJobs[0];
+        }
 
-        return Inertia::render('Job/Show', compact('job', 'similarJobs'));
+
+        return Inertia::render('Job/Show', compact('job', 'similarJobs', 'secondJob'));
     }
 
     /**
