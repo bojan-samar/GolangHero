@@ -117,6 +117,14 @@ class JobController extends Controller
             );
         }
 
+        $similarJobs->transform(function ($item, $key) {
+            return [
+                'slug' => $item->slug,
+                'title' => $item->title,
+            ];
+        });
+
+
         return Inertia::render('Job/Show', compact('job', 'similarJobs', 'secondJob'));
     }
 
