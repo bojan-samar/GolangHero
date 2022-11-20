@@ -37,7 +37,7 @@ onMounted(() => {
 
     let description2;
     try {
-        description2 = JSON.parse(props.secondJob().description);
+        description2 = JSON.parse(props.secondJob.description);
     } catch (error) {
         description2 = null;
     }
