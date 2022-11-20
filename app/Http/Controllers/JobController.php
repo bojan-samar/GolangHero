@@ -102,7 +102,7 @@ class JobController extends Controller
             ->selectRaw("MATCH (`title`) AGAINST ('". $job->title ."' IN NATURAL LANGUAGE MODE) AS score")
 //            ->whereFullText('title', 'python manager')
             ->where([
-                ['id','!=', $job->id],
+                ['slug','!=', $job->slug],
                 ['status',1],
                 ['expired_at',">=", now()]
             ])
