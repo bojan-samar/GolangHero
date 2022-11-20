@@ -132,12 +132,14 @@ onMounted(() => {
         </section>
 
         <section class="bg-gray-100 px-4 py-12">
-            <h2 class="text-xl text-center">You Might Also Be Interested in This Job</h2>
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-xl text-center">You Might Also Be Interested in This Job</h2>
 
-            <h3 class="text-2xl text-center font-bold mt-8">{{ similarJobs[0].title }}</h3>
+                <h3 class="text-2xl text-center font-bold mt-8">{{ similarJobs[0].title }}</h3>
 
-            <div class="mt-4">
-                <EditorContent :editor="state.editor2"/>
+                <div class="mt-4">
+                    <EditorContent :editor="state.editor2"/>
+                </div>
             </div>
 
         </section>
