@@ -90,19 +90,19 @@ class JobController extends Controller
      */
     public function show($slug)
     {
-        $job = JobResource::make(
-            Job::query()
-                ->where('slug', $slug)
-                ->with(['company'])
-                ->firstOrFail()
-        );
+        $jobOriginal = Job::query()
+            ->where('slug', $slug)
+            ->with(['company'])
+            ->firstOrFail();
+
+        $job = JobResource::make($jobOriginal);
 
         $similarJobs = DB::table('jobs')
             ->select('*')
             ->selectRaw("MATCH (`title`) AGAINST ('". $job->title ."' IN NATURAL LANGUAGE MODE) AS score")
 //            ->whereFullText('title', 'python manager')
             ->where([
-                ['slug','!=', $job->slug],
+                ['company_id','!=', $jobOriginal->company->id],
                 ['status',1],
                 ['expired_at',">=", now()]
             ])
