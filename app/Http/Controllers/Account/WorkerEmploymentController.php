@@ -80,8 +80,7 @@ class WorkerEmploymentController extends Controller
 
     public function destroy($uuid)
     {
-        dd($uuid);
-        WorkerSkill::where('uuid', $uuid)->delete();
+        WorkerEmployment::where('uuid', $uuid)->delete();
 
         return back();
     }
