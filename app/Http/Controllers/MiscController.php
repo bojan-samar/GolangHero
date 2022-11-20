@@ -23,7 +23,7 @@ class MiscController extends Controller
             ->active()
             ->orderBy('order_by_date','desc')
             ->with(['company'])
-            ->paginate(60)
+            ->paginate(80)
             ->withQueryString();
 
         $jobs->links = $jobs->onEachSide(1)->links();

@@ -2,6 +2,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import JobCard from "@/Components/Job/JobCard.vue";
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 
 defineProps({
@@ -76,8 +77,16 @@ defineProps({
                 <h2 class="mb-5 font-bold tracking-wider text-3xl text-center">Recent Jobs</h2>
 
 
-                <template v-for="job in jobs.data">
+                <template v-for="(job, index) in jobs.data">
                     <JobCard :job="job"></JobCard>
+                    <section class="card bg-yellow-200 max-w-4xl mx-auto mb-8 text-center" v-if="index % 10 == 0">
+                        🔥 Create Profile, Get Hired (Beta)
+                        <div class="mt-4">
+                            <Link :href="route('account.worker.index')">
+                                <PrimaryButton>Create Profile</PrimaryButton>
+                            </Link>
+                        </div>
+                    </section>
                 </template>
             </div>
 

@@ -97,7 +97,21 @@ class JobController extends Controller
                 ->firstOrFail()
         );
 
-        return Inertia::render('Job/Show', compact('job'));
+        $similarJobs = DB::table('jobs')
+            ->select('*')
+            ->selectRaw("MATCH (`title`) AGAINST ('". $job->title ."' IN NATURAL LANGUAGE MODE) AS score")
+//            ->whereFullText('title', 'python manager')
+            ->where([
+                ['id','!=', $job->id],
+                ['status',1],
+                ['expired_at',">=", now()]
+            ])
+            ->orderBy('score', 'desc')
+            ->limit(5)
+            ->get();
+
+
+        return Inertia::render('Job/Show', compact('job', 'similarJobs'));
     }
 
     /**

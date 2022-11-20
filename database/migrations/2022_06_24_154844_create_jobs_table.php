@@ -19,7 +19,7 @@ class CreateJobsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->nullable();
             $table->foreignId('company_id')->constrained();
-            $table->string('title');
+            $table->string('title')->fulltext();
             $table->string('type', 50)->nullable();
             $table->string('location')->nullable();
             $table->string('apply_url')->nullable();
