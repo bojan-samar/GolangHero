@@ -132,7 +132,16 @@ onMounted(() => {
                 </svg>
             </section>
 
-            <section class="bg-gray-100 px-4 py-12">
+            <section id="similar-jobs" class="bg-gray-100 px-4 py-12">
+                <h2 class="text-center mb-4 text-2xl">Similar Jobs</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <Link :href="route('job.show', job.slug)" v-for="job in similarJobs" class="card bg-white text-center hover:shadow-lg ease-in-out duration-300">
+                        <h3>{{ job.title }}</h3>
+                    </Link>
+                </div>
+            </section>
+
+            <section id="second-job" class="bg-gray-100 px-4 py-12">
                 <div class="max-w-5xl mx-auto">
                     <h2 class="text-xl text-center">You Might Also Be Interested in This Job</h2>
 

@@ -124,7 +124,6 @@ class JobController extends Controller
             ];
         });
 
-
         return Inertia::render('Job/Show', compact('job', 'similarJobs', 'secondJob'));
     }
 
