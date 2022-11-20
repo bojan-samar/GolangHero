@@ -111,9 +111,11 @@ class JobController extends Controller
 
         $secondJob = null;
         if ($similarJobs->count()){
-            $secondJob = $similarJobs[0];
+            $secondJobSlug = $similarJobs[0]->slug;
+            $secondJob = JobResource::make(
+                Job::where('slug', $secondJobSlug)->with('company')->first()
+            );
         }
-
 
         return Inertia::render('Job/Show', compact('job', 'similarJobs', 'secondJob'));
     }
