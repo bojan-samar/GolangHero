@@ -44,6 +44,7 @@ class WorkerEmploymentController extends Controller
 
 
         $worker = Worker::query()->where('user_id', auth()->user()->id)->firstOrFail();
+
         $employment = new WorkerEmployment;
         $employment->worker_id = $worker->id;
         $employment->from_month = $request->get('fromMonth');
@@ -79,6 +80,7 @@ class WorkerEmploymentController extends Controller
 
     public function destroy($uuid)
     {
+        dd($uuid);
         WorkerSkill::where('uuid', $uuid)->delete();
 
         return back();

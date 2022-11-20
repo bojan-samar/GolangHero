@@ -18,7 +18,7 @@ defineProps({
             </div>
 
             <div id="employment" class="card bg-white mt-10">
-                <h2 class="text-center mb-4">Work History</h2>
+                <h2 class="text-center">Work History</h2>
                 <UpdateEmployment :employments="user.worker.employments"></UpdateEmployment>
             </div>
 

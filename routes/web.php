@@ -39,6 +39,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => ['auth:sanctum']], function () {
     Route::get('worker-employment/create', [App\Http\Controllers\Account\WorkerEmploymentController::class, 'create'])->name('worker-employment.create');
     Route::post('worker-employment', [App\Http\Controllers\Account\WorkerEmploymentController::class, 'store'])->name('worker-employment.store');
+    Route::delete('worker-employment/{uuid}', [App\Http\Controllers\Account\WorkerEmploymentController::class, 'destroy'])->name('worker-employment.destroy');
     Route::resource('worker', App\Http\Controllers\Account\WorkerController::class);
     Route::post('worker-skill', [App\Http\Controllers\Account\WorkerSkillController::class, 'store'])->name('worker-skill.store');
     Route::put('worker-social', [App\Http\Controllers\Account\WorkerSkillController::class, 'updateSocials'])->name('worker-social.update');
