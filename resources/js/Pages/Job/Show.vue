@@ -137,7 +137,7 @@ onMounted(() => {
             <h3 class="text-2xl text-center font-bold mt-8">{{ similarJobs[0].title }}</h3>
 
             <div class="mt-4">
-                <EditorContent :editor="state.editor"/>
+                <EditorContent :editor="state.editor2"/>
             </div>
 
         </section>
