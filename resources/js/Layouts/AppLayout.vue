@@ -45,6 +45,12 @@ const logout = () => {
 
         <Banner />
 
+        <div class="bg-yellow-200 text-center py-4 md:py-2">
+            <Link :href="route('account.worker.index')">
+                🔥 Create Profile, Get Hired (Beta)
+            </Link>
+        </div>
+
         <div class="min-h-screen">
             <nav class="bg-white">
                 <!-- Primary Navigation Menu -->

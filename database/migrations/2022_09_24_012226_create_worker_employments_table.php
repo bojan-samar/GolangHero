@@ -16,7 +16,7 @@ class CreateWorkerEmploymentsTable extends Migration
         Schema::create('worker_employments', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('worker_id')->constrained();
+            $table->foreignId('worker_id')->constrained()->cascadeOnDelete();
             $table->unsignedTinyInteger('from_month');
             $table->year('from_year');
             $table->unsignedTinyInteger('to_month')->nullable();

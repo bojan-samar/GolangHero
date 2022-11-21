@@ -16,7 +16,7 @@ class CreateWorkerSkillsTable extends Migration
         Schema::create('worker_skills', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignId('worker_id')->constrained();
+            $table->foreignId('worker_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->unsignedTinyInteger('experience');
             $table->timestamps();

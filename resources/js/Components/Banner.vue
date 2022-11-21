@@ -38,11 +38,6 @@ watch(message, async () => {
 
 <template>
     <div>
-        <div class="bg-yellow-200 text-center py-2">
-            <Link :href="route('account.worker.index')">
-                🔥 Create Profile, Get Hired (Beta)
-            </Link>
-        </div>
         <div v-if="show && message" :class="{ 'bg-green-500': style == 'success', 'bg-red-600': style == 'danger' }">
             <div class="max-w-screen-xl mx-auto py-2 px-3 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between flex-wrap">
