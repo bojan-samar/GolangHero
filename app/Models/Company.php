@@ -61,9 +61,12 @@ class Company extends Model
             $query = $query->where('status', $status);
         }
 
+        //If sort else latest.
         if ($sort = request()->get('sort')){
             $direction = request()->get('direction') ?? 'asc';
-            $query = $query->orderBy($sort,$direction);
+            $query = $query->orderBy($sort, $direction);
+        }else{
+            $query->latest();
         }
 
         return $query;

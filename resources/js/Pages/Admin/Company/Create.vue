@@ -37,7 +37,7 @@ const form = useForm({
     location: null,
     description: null,
     twitter: null,
-    status: null,
+    status: true,
 });
 
 const store = () => {

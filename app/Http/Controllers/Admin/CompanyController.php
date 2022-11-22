@@ -22,7 +22,7 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        $companies = Company::query()->latest()->filter()->paginate(50)->withQueryString();
+        $companies = Company::query()->filter()->paginate(50)->withQueryString();
         $companies->append('created_at_date_string');
         $companies->links = $companies->onEachSide(1)->links();
 
