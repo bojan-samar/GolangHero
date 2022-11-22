@@ -114,7 +114,7 @@ class JobImportController extends Controller
         $job->salary_max = $request->get('salary_max');
         $job->type = $request->get('job_type');
         $job->status = 1;
-        $job->order_by_date = $job->calculateOrderByDate();
+        $job->order_by_date = now();
         $job->save();
 
         $jobImport->status = 0;
