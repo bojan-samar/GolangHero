@@ -261,7 +261,10 @@ const search = () => {
                 <div class="flex items-center justify-between">
                     <div>
                         <div>
-                            Import Company: {{ job.company_name }}
+                            Import Company:
+                            <a target="_blank" class="link" :href="'https://www.google.com/search?q=' + job.company_name.replace(' ', '+')">
+                                {{ job.company_name }}
+                            </a>
                         </div>
 
                         <div v-if="form.company_slug">
