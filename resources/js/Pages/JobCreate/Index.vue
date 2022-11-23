@@ -20,7 +20,11 @@ defineProps({
             <meta name="description" content="Post a Golang job today.">
         </Head>
 
-        <section class="max-w-3xl mx-auto pt-12 px-4">
+        <section class="p-4 text-center font-bold">
+            Special Offer: For a limited time, you can post a Golang job for only $9.99
+        </section>
+
+        <section class="max-w-3xl mx-auto px-4">
             <h1 class="text-lg mb-4 text-center">Select A Company First</h1>
             <SearchForm route-name="job-create"></SearchForm>
         </section>
