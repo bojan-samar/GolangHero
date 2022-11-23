@@ -4,6 +4,7 @@ import UpdateEmployment from '@/Pages/Account/Worker/Partials/UpdateEmployment.v
 import UpdateSkills from '@/Pages/Account/Worker/Partials/UpdateSkills.vue';
 import UpdateSocials from '@/Pages/Account/Worker/Partials/UpdateSocials.vue';
 import UpdateUsername from '@/Pages/Account/Worker/Partials/UpdateUsername.vue';
+import UpdateResume from '@/Pages/Account/Worker/Partials/UpdateResume.vue';
 
 defineProps({
     user: Object,
@@ -30,6 +31,11 @@ defineProps({
             <div class="card bg-white mt-10">
                 <h2 class="text-center mb-4">Social Accounts</h2>
                 <UpdateSocials :worker="user.worker"></UpdateSocials>
+            </div>
+
+            <div class="card bg-white mt-10">
+                <h2 class="text-center mb-4">Your Resume</h2>
+                <UpdateResume :resume="user.worker.resume"></UpdateResume>
             </div>
         </section>
     </AppLayout>

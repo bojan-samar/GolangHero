@@ -94,4 +94,17 @@ class WorkerController extends Controller
     {
         //
     }
+
+    public function updateResume(Request $request)
+    {
+        $request->validate([
+            'resume' => 'array',
+        ]);
+
+        $worker = Worker::where('user_id', auth()->user()->id)->first();
+        $worker->resume = $request->get('resume');
+        $worker->save();
+
+        return back();
+    }
 }

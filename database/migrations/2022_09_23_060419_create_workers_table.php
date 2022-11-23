@@ -21,7 +21,7 @@ class CreateWorkersTable extends Migration
             $table->string('website')->nullable();
             $table->string('linkedin')->nullable();
             $table->boolean('status')->default(false);
-            $table->text('description')->nullable();
+            $table->text('resume')->nullable();
             $table->timestamps();
         });
     }
