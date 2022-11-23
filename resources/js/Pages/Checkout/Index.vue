@@ -16,6 +16,7 @@ const state = reactive({
     'stripe': null,
     'elements': null,
     'processing': false,
+    'error': null,
 })
 
 const stripeInit = () => {
@@ -35,6 +36,7 @@ const stripeInit = () => {
 
 const stripeSubmit = async () => {
     state.processing = true;
+    state.error = null;
     const elements = state.elements;
 
     const {error} = await state.stripe.confirmPayment({
@@ -50,8 +52,7 @@ const stripeSubmit = async () => {
         // This point will only be reached if there is an immediate error when
         // confirming the payment. Show error to your customer (for example, payment
         // details incomplete)
-        const messageContainer = document.querySelector('#error-message');
-        messageContainer.textContent = error.message;
+        state.error = error.message;
     } else {
         // Your customer will be redirected to your `return_url`. For some payment
         // methods like iDEAL, your customer will be redirected to an intermediate
@@ -86,6 +87,7 @@ onMounted(() => {
                 </div>
 
                 <PrimaryButton id="submit" class="mt-5" :class="{ 'opacity-25': state.processing }" :disabled="state.processing">Submit</PrimaryButton>
+                <div v-if="state.error" class="mt-2 text-red-600">{{ state.error }}</div>
             </form>
         </div>
     </AppLayout>
