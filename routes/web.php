@@ -42,6 +42,7 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => ['auth:
     Route::delete('worker-employment/{uuid}', [App\Http\Controllers\Account\WorkerEmploymentController::class, 'destroy'])->name('worker-employment.destroy');
     Route::resource('worker', App\Http\Controllers\Account\WorkerController::class);
     Route::post('worker-skill', [App\Http\Controllers\Account\WorkerSkillController::class, 'store'])->name('worker-skill.store');
+    Route::put('worker-social', [App\Http\Controllers\Account\WorkerSkillController::class, 'updateSocials'])->name('worker-social.update');
     Route::put('worker-resume', [App\Http\Controllers\Account\WorkerController::class, 'updateResume'])->name('worker-resume.update');
     Route::delete('worker-skill/{uuid}', [App\Http\Controllers\Account\WorkerSkillController::class, 'destroy'])->name('worker-skill.destroy');
     Route::put('username', [App\Http\Controllers\Account\UserController::class, 'updateUsername'])->name('username.update');
