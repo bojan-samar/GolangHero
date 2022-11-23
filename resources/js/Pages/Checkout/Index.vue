@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
@@ -8,6 +8,7 @@ const props = defineProps({
     stripeKey: String,
     returnUrl: String,
     job: Object,
+    jobPrice: Number,
 });
 
 
@@ -77,7 +78,7 @@ onMounted(() => {
                 <h1 class="text-center font-bold text-lg mb-4">Checkout</h1>
                 <div>
                     <div>Job: {{ job.title }}</div>
-                    <div>Total: $99.99</div>
+                    <div>Total: ${{ jobPrice / 100 }}</div>
                 </div>
 
                 <div id="payment-element" class="mt-5">

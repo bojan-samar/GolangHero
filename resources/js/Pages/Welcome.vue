@@ -3,6 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import JobCard from "@/Components/Job/JobCard.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 
 defineProps({
@@ -29,18 +30,30 @@ defineProps({
             }
         </component>
 
-        <section>
-            <h1 class="max-w-3xl mx-auto text-5xl font-black text-center md:text-5xl lg:text-6xl mt-12">Biggest Golang Job Board</h1>
+        <section class="text-center px-4">
+            <h1 class="max-w-3xl mx-auto text-5xl font-bla5 md:text-5xl lg:text-6xl mt-12 mb-3">Biggest Golang Job Board</h1>
+
+            <p>
+                Special Offer: For a limited time, you can post a Golang job for only $9.99
+            </p>
+            <div class="mt-5 flex space-x-4 justify-center">
+                <a href="#jobs">
+                    <SecondaryButton><span class="px-3 py-2 text-sm">See Jobs</span></SecondaryButton>
+                </a>
+                <Link :href="route('job-create')">
+                    <PrimaryButton><span class="px-3 py-2 text-sm">Post Job</span></PrimaryButton>
+                </Link>
+            </div>
         </section>
 
 
         <section id="stats" class="max-w-2xl mx-auto grid md:grid-cols-2 gap-10 py-12 px-4">
-            <div class="rounded-2xl bg-gray-900 text-white text-center rounded-3xl px-6 py-12">
+            <div class="text-center rounded-3xl px-6 py-12 shadow-xl">
                 <div class="text-5xl font-black mt-1 tracking-wider">{{ companyCount }}+</div>
                 <h3 class="mt-1">Companies Hiring</h3>
             </div>
 
-            <div class="rounded-2xl bg-gray-900 text-white text-center rounded-3xl px-6 py-12">
+            <div class="text-center rounded-3xl px-6 py-12 shadow-xl">
                 <div class="text-5xl font-black mt-1 tracking-wider">{{ jobsTotalCount }}+</div>
                 <h3 class="mt-1">Active Jobs</h3>
             </div>
@@ -72,7 +85,7 @@ defineProps({
         </section>
 
 
-        <section class="bg-gray-100 px-4 py-12">
+        <section class="bg-gray-100 px-4 py-12" id="jobs">
             <div class="max-w-3xl mx-auto">
                 <h2 class="mb-5 font-bold tracking-wider text-3xl text-center">Recent Jobs</h2>
 

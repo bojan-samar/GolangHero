@@ -19,6 +19,8 @@ class Job extends Model
     use SoftDeletes;
     use JobTrait;
 
+    public $price = 999;
+
     public $statuses = [
         '-1' =>['text' => 'Declined', 'css' => 'bg-red-200'],
         '0' =>['text' => 'Draft', 'css' => 'bg-red-200'],

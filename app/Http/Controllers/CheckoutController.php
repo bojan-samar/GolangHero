@@ -22,10 +22,13 @@ class CheckoutController extends Controller
             return redirect()->route('job-create')->with('flash.danger', 'This job was paid for already.');
         }
 
+        $jobModel = new Job;
+        $jobPrice = $jobModel->price;
+
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
         $intent = $stripe->paymentIntents->create(
             [
-                'amount' => 9999,
+                'amount' => $jobPrice,
                 'currency' => 'usd',
                 'automatic_payment_methods' => ['enabled' => true],
             ]
@@ -36,7 +39,7 @@ class CheckoutController extends Controller
         $returnUrl = route('thank-you', $jobSlug);
         $job = $job->only(['title']);
 
-        return Inertia::render('Checkout/Index', compact('clientSecret', 'stripeKey', 'returnUrl', 'job'));
+        return Inertia::render('Checkout/Index', compact('clientSecret', 'stripeKey', 'returnUrl', 'job', 'jobPrice'));
     }
 
     public function thankYou(Request $request, $jobSlug)
