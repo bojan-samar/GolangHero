@@ -20,7 +20,7 @@ defineProps({
 <template>
     <AdminLayout title="Workers Admin">
 
-        <section class="max-w-4xl mx-auto mt-5">
+        <section class="max-w-4xl mx-auto">
             <SearchForm route-name="admin.worker.index"></SearchForm>
         </section>
 

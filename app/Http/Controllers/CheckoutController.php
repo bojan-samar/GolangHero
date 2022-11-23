@@ -56,12 +56,15 @@ class CheckoutController extends Controller
         $job->order_by_date = now();
         $job->save();
 
+        $jobModel = new Job;
+        $jobPrice = $jobModel->price;
+
         $order = new Order;
         $order->user_id = auth()->user()->id;
         $order->job_id = $job->id;
         $order->processor = 'stripe';
         $order->processor_id = $request->get('payment_intent');
-        $order->total = 29900;
+        $order->total = $jobPrice;
         $order->save();
 
         return Inertia::render('Checkout/ThankYou', [
