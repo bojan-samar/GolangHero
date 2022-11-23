@@ -47,6 +47,7 @@ const submit = () => {
             <title>Apply for {{ job.title }}</title>
             <meta name="description" content="Apply for a job">
             <meta name="robots" content="noindex">
+            <link rel="canonical" href="/apply" />
         </Head>
 
         <component :is="'style'">
