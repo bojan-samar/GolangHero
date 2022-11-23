@@ -11,6 +11,7 @@ import StarterKit from "@tiptap/starter-kit";
 
 const props = defineProps({
     job: Object,
+    canonicalUrl: String,
 });
 
 const state = reactive({
@@ -47,7 +48,7 @@ const submit = () => {
             <title>Apply for {{ job.title }}</title>
             <meta name="description" content="Apply for a job">
             <meta name="robots" content="noindex">
-            <link rel="canonical" href="/apply" />
+            <link rel="canonical" :href="canonicalUrl" />
         </Head>
 
         <component :is="'style'">

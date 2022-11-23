@@ -59,6 +59,8 @@ const form = useForm({
 });
 
 const store = () => {
+    form.salary_min = form.salary_min.replace(',','')
+    form.salary_max = form.salary_max.replace(',','')
     form.description = state.editor.getJSON();
     form.post(route('admin.job-import.update', props.job.id))
 };

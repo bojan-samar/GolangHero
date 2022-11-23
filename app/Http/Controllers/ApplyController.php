@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\JobResource;
 use App\Models\Application;
 use App\Models\Job;
 use App\Models\Tracking;
@@ -18,7 +19,10 @@ class ApplyController extends Controller
             ->with('company:id,name')
             ->firstOrFail();
 
-        return Inertia::render('Apply/Show', compact('job'));
+
+        $canonicalUrl = url('apply');
+
+        return Inertia::render('Apply/Show', compact('job', 'canonicalUrl'));
     }
 
 
