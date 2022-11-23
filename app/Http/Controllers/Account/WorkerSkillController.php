@@ -40,10 +40,10 @@ class WorkerSkillController extends Controller
     public function updateSocials(Request $request)
     {
         $request->validate([
-            'github' => 'required|string|min:1|max:255',
-            'website' => 'required|string|min:1|max:255',
-            'twitter' => 'required|string|min:1|max:255',
-            'linkedin' => 'required|string|min:1|max:255',
+            'github' => 'nullable|string|min:1|max:255',
+            'website' => 'nullable|string|min:1|max:255',
+            'twitter' => 'nullable|string|min:1|max:255',
+            'linkedin' => 'nullable|string|min:1|max:255',
         ]);
 
         $worker = Worker::where('user_id', auth()->user()->id)->first();
