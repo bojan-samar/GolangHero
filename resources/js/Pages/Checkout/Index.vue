@@ -86,8 +86,9 @@ onMounted(() => {
                     <!-- Elements will create form elements here -->
                 </div>
 
-                <PrimaryButton id="submit" class="mt-5" :class="{ 'opacity-25': state.processing }" :disabled="state.processing">Submit</PrimaryButton>
                 <div v-if="state.error" class="mt-2 text-red-600">{{ state.error }}</div>
+
+                <PrimaryButton id="submit" class="mt-5" :class="{ 'opacity-25': state.processing }" :disabled="state.processing">Submit</PrimaryButton>
             </form>
         </div>
     </AppLayout>
