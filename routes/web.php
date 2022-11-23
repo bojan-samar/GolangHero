@@ -45,7 +45,6 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => ['auth:
     Route::put('worker-social', [App\Http\Controllers\Account\WorkerSkillController::class, 'updateSocials'])->name('worker-social.update');
     Route::delete('worker-skill/{uuid}', [App\Http\Controllers\Account\WorkerSkillController::class, 'destroy'])->name('worker-skill.destroy');
     Route::put('username', [App\Http\Controllers\Account\UserController::class, 'updateUsername'])->name('username.update');
-
 });
 
 //Auth
@@ -92,6 +91,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::resource('job-import', App\Http\Controllers\Admin\JobImportController::class);
     Route::resource('company', App\Http\Controllers\Admin\CompanyController::class);
     Route::post('company-download-logo', [App\Http\Controllers\Admin\CompanyController::class, 'downloadLogo'])->name('company.download-logo');
+    Route::resource('worker', App\Http\Controllers\Admin\WorkerController::class);
 });
 
 

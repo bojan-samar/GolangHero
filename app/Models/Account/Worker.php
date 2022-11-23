@@ -4,8 +4,10 @@ namespace App\Models\Account;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Worker extends Model
 {
@@ -23,15 +25,31 @@ class Worker extends Model
 
     public function scopeFilter($query)
     {
-        $skill = request()->get('skill');
+        request()->validate([
+            'status' => 'nullable|numeric',
+            'search' => 'nullable|string|min:2|max:100',
+        ]);
 
-        if (\request()->get('skill')){
-            $query = $query->whereRelation(
-                'skills', 'skill', $skill
-            );
+        if ($search = request()->search) {
+            collect(explode(' ', $search))->each(function ($term, $key) use ($query) {
+                $term = "%$term%";
+                $query->where(function ($query) use ($term){
+                    $query->where('twitter', 'LIKE', $term)
+                        ->orWhereHas('user', function (Builder $query) use ($term) {
+                            $query->where('name', 'like', $term);
+                        });
+                });
+            });
         }
 
         return $query;
+    }
+
+    public function createdAtDateString(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            return $attributes['created_at'] ? Carbon::parse($attributes['created_at'])->format('M d, Y') : null;
+        });
     }
 
 
