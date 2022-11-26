@@ -21,7 +21,7 @@ class WorkerSkillController extends Controller
         $skill = $request->get('skill');
 
         $worker = Worker::query()->where('user_id', auth()->user()->id)
-            ->withCount(['skills' => function ($query) use($skill) {
+            ->withCount(['workerSkills' => function ($query) use($skill) {
                 $query->where('name', $skill);
             }])->first();
 
