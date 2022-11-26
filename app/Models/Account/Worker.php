@@ -16,6 +16,8 @@ class Worker extends Model
         'skills' => 'array',
     ];
 
+    protected $hidden = ['id', 'user_id'];
+
     protected $guarded = [];
 
     public function scopePublic($query)
@@ -58,7 +60,7 @@ class Worker extends Model
         return $this->hasMany(WorkerEmployment::class)->orderBy('from_year', 'desc');
     }
 
-    public function skills()
+    public function workerSkills()
     {
         return $this->hasMany(WorkerSkill::class);
     }

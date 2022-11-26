@@ -24,16 +24,28 @@ use Inertia\Inertia;
 //    ]);
 //});
 
-Route::get('checkout/{slug}', [App\Http\Controllers\CheckoutController::class, 'checkout'])->name('checkout');
-Route::get('thank-you/{slug}', [App\Http\Controllers\CheckoutController::class, 'thankYou'])->name('thank-you');
+
+Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
 
 Route::get('alert', [App\Http\Controllers\JobAlertController::class, 'index'])->name('alert.index');
 Route::post('alert', [App\Http\Controllers\JobAlertController::class, 'store'])->name('alert.store');
 
+Route::get('apply/{slug}', [\App\Http\Controllers\ApplyController::class,'show'])->name('apply.show');
+Route::post('apply', [\App\Http\Controllers\ApplyController::class,'store'])->name('apply.store');
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-})->name('welcome');
+Route::get('checkout/{slug}', [App\Http\Controllers\CheckoutController::class, 'checkout'])->name('checkout');
+Route::get('thank-you/{slug}', [App\Http\Controllers\CheckoutController::class, 'thankYou'])->name('thank-you');
+
+Route::resource('company', App\Http\Controllers\CompanyController::class);
+Route::resource('job', App\Http\Controllers\JobController::class);
+
+Route::get('worker', [\App\Http\Controllers\WorkerController::class,'index'])->name('worker.index');
+Route::get('worker/{username}', [\App\Http\Controllers\WorkerController::class,'show'])->name('worker.show');
+
+
+//Route::get('/', function () {
+//    return Inertia::render('Welcome');
+//})->name('welcome');
 
 //Account
 Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => ['auth:sanctum']], function () {
@@ -65,16 +77,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('job-create/{slug}/details', [App\Http\Controllers\JobCreateController::class, 'details'])->name('job-create.details');
     Route::get('job-create/{uuid}/review', [App\Http\Controllers\JobCreateController::class, 'review'])->name('job-create.review');
-
-
 });
-
-
-Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
-Route::resource('company', App\Http\Controllers\CompanyController::class);
-Route::resource('job', App\Http\Controllers\JobController::class);
-Route::get('apply/{slug}', [\App\Http\Controllers\ApplyController::class,'show'])->name('apply.show');
-Route::post('apply', [\App\Http\Controllers\ApplyController::class,'store'])->name('apply.store');
 
 //Forum
 Route::resource('forum', \App\Http\Controllers\ForumController::class);

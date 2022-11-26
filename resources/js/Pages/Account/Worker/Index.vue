@@ -25,7 +25,7 @@ defineProps({
 
             <div class="card bg-white mt-10">
                 <h2 class="text-center mb-4">Your Skills</h2>
-                <UpdateSkills :skills="user.worker.skills"></UpdateSkills>
+                <UpdateSkills :skills="user.worker.worker_skills"></UpdateSkills>
             </div>
 
             <div class="card bg-white mt-10">

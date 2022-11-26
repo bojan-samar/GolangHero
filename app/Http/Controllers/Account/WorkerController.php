@@ -16,7 +16,7 @@ class WorkerController extends Controller
      */
     public function index()
     {
-        $user = auth()->user()->load([ 'worker.employments', 'worker.skills']);
+        $user = auth()->user()->load([ 'worker.employments', 'worker.workerSkills']);
 
         if (! $user->worker){
             return Inertia::render('Account/Worker/Create');
