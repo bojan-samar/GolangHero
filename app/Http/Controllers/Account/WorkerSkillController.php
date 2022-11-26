@@ -25,7 +25,9 @@ class WorkerSkillController extends Controller
                 $query->where('name', $skill);
             }])->first();
 
-        if ($worker->skills_count === 0){
+
+
+        if ($worker->worker_skills_count === 0){
             $workerSkill = new WorkerSkill;
             $workerSkill->worker_id = $worker->id;
             $workerSkill->name = $skill;
