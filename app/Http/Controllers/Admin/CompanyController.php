@@ -121,7 +121,7 @@ class CompanyController extends Controller
         $request->validate([
             'name' => 'required|string|min:2|max:191',
             'slug' => ['required','string', 'min:2', 'max:255', Rule::unique('companies')->ignore($company->id)],
-            'url' => ['nullable','string', 'min:2', 'max:255', Rule::unique('companies')->ignore($company->url)],
+            'url' => ['nullable','string', 'min:2', 'max:255', Rule::unique('companies')->ignore($company->id)],
             'twitter' => 'nullable|string|min:1|max:191',
             'location' => 'nullable|string|min:2|max:191',
             'status' => 'required|boolean',
