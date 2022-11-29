@@ -49,6 +49,7 @@ const form = useForm({
     description: props.company.description,
     twitter: props.company.twitter,
     photo: null,
+    importPhotoUrl: null,
     status: props.company.status ? true : false,
 });
 
@@ -95,7 +96,9 @@ const store = () => {
         form.photo = photoInput.value.files[0];
     }
     form.description = state.editor.getJSON();
-    form.post(route('admin.company.update', props.company.id))
+    form.post(route('admin.company.update', props.company.id), {
+        onSuccess: () => clearPhotoFileInput(),
+    })
 };
 
 const destroy = () => {
@@ -295,7 +298,17 @@ const destroy = () => {
                         <InputError :message="form.errors.photo" class="mt-2" />
                     </section>
 
-                    <section class="mt-6">
+
+                    <section class="mt-4">
+                        <div>
+                            <InputLabel for="importPhotoUrl" value="Import Url"/>
+                            <TextInput id="importPhotoUrl" type="text" class="mt-1 block w-full" v-model="form.importPhotoUrl"/>
+                            <InputError :message="form.errors.importPhotoUrl" class="mt-2"/>
+                        </div>
+                    </section>
+
+
+                    <section class="mt-4">
                         <label for="default-toggle" class="switch toggle-input inline-flex relative items-center cursor-pointer">
                             <input type="checkbox" value="" id="default-toggle" class="sr-only peer"
                                    v-model="form.status">
@@ -307,7 +320,6 @@ const destroy = () => {
                             </span>
                         </label>
                     </section>
-
 
 
                     <section class="flex items-center mt-4">

@@ -124,20 +124,31 @@ class CompanyController extends Controller
             'url' => ['nullable','string', 'min:2', 'max:255', Rule::unique('companies')->ignore($company->id)],
             'twitter' => 'nullable|string|min:1|max:191',
             'location' => 'nullable|string|min:2|max:191',
+            'importPhotoUrl' => 'nullable|url|min:2|max:1000',
             'status' => 'required|boolean',
             'photo' => ['nullable','image','mimes:jpg,jpeg,png', 'max:1024'],
             'meta' => 'nullable|array',
             'description' => 'array',
         ]);
 
-        if ($company->photo) {
+        $photo = $company->photo;
+        $deleteOriginalPhoto = false;
+        //Check if photo uploaded and check if photo url imported
+        if ($request->has('photo')){
+            $photo = $request->file('photo')->storePublicly('company');
+            $deleteOriginalPhoto = true;
+        }elseif ( $importPhotoUrl = $request->get('importPhotoUrl') ){
+            $response = Http::get($importPhotoUrl);
+            $photo = 'company/' . Str::random(20) . '.jpg';
+            Storage::put($photo, $response->body(),'public');
+            $deleteOriginalPhoto = true;
+        }
+
+        //Delete original photo if new photo uploaded
+        if ($company->photo && $deleteOriginalPhoto){
             Storage::delete($company->photo);
         }
 
-        $photo = null;
-        if ($request->has('photo')){
-            $photo = $request->file('photo')->storePublicly('company');
-        }
 
         $company->name = $request->get('name');
         $company->slug = $request->get('slug');
