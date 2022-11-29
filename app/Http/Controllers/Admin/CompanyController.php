@@ -134,7 +134,10 @@ class CompanyController extends Controller
             Storage::delete($company->photo);
         }
 
-        $photo = $request->file('photo')->storePublicly('company');
+        $photo = null;
+        if ($request->has('photo')){
+            $photo = $request->file('photo')->storePublicly('company');
+        }
 
         $company->name = $request->get('name');
         $company->slug = $request->get('slug');
