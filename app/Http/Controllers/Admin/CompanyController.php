@@ -133,13 +133,14 @@ class CompanyController extends Controller
 
         $photo = $company->photo;
         $deleteOriginalPhoto = false;
+        $startOfDayStamp = Carbon::now()->startOfDay()->timestamp;
         //Check if photo uploaded and check if photo url imported
         if ($request->has('photo')){
-            $photo = $request->file('photo')->storePublicly('company');
+            $photo = $request->file('photo')->storePublicly('company/' . $startOfDayStamp);
             $deleteOriginalPhoto = true;
         }elseif ( $importPhotoUrl = $request->get('importPhotoUrl') ){
             $response = Http::get($importPhotoUrl);
-            $photo = 'company/' . Str::random(20) . '.jpg';
+            $photo = 'company/' . $startOfDayStamp . '/' . Str::random(20) . '.jpg';
             Storage::put($photo, $response->body(),'public');
             $deleteOriginalPhoto = true;
         }
