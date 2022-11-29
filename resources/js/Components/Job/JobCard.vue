@@ -9,8 +9,8 @@ defineProps({
 <template>
     <div class="bg-white card mb-8 flex flex-wrap job-post">
 
-        <section v-if="job.company && job.company.photo" class="w-full md:w-1/6 company-logo p-4 flex items-center">
-            <img class="rounded mx-auto" style="max-height: 60px" :src="job.company.photo" :alt="job.company.name">
+        <section v-if="job.company && job.company.photo" class="w-full md:w-1/6 company-logo p-4">
+            <img class="rounded-full h-16 w-16 object-cover" :src="job.company.photo" :alt="job.company.name">
         </section>
 
         <section class="w-full flex-1 job-details">

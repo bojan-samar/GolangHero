@@ -74,6 +74,10 @@ const logout = () => {
                                     Jobs
                                 </NavLink>
 
+                                <NavLink :href="route('company.index')" :active="route().current('company.index')">
+                                    Companies
+                                </NavLink>
+
                                 <NavLink :href="route('job-create')" :active="route().current('job-create')">
                                     Post Job
                                 </NavLink>
@@ -245,6 +249,10 @@ const logout = () => {
 
                         <ResponsiveNavLink :href="route('job.index')" :active="route().current('job.index')">
                             Jobs
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink :href="route('company.index')" :active="route().current('company.index')">
+                            Companies
                         </ResponsiveNavLink>
 
                         <ResponsiveNavLink :href="route('job-create')" :active="route().current('job-create')">
