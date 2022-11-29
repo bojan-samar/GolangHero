@@ -24,13 +24,14 @@ class Company extends Model
     public static function boot()
     {
         parent::boot();
-        static::creating(function($model){
+        static::creating(function ($model) {
 //            $slug = Str::slug($model->name);
 //            $model->slug = $slug;
         });
     }
 
-    public function jobs(){
+    public function jobs()
+    {
         return $this->HasMany(Job::class)->latest();
     }
 
@@ -50,22 +51,22 @@ class Company extends Model
         if ($search) {
             collect(explode(' ', $search))->each(function ($term, $key) use ($query) {
                 $term = "%$term%";
-                $query->where(function ($query) use ($term){
+                $query->where(function ($query) use ($term) {
                     $query->where('name', 'LIKE', $term);
                 });
             });
         }
 
         $status = request()->status;
-        if (! is_null($status)) {
+        if (!is_null($status)) {
             $query = $query->where('status', $status);
         }
 
         //If sort else latest.
-        if ($sort = request()->get('sort')){
+        if ($sort = request()->get('sort')) {
             $direction = request()->get('direction') ?? 'asc';
             $query = $query->orderBy($sort, $direction);
-        }else{
+        } else {
             $query->latest();
         }
 
@@ -76,7 +77,9 @@ class Company extends Model
     public function photoUrl(): Attribute
     {
         return Attribute::get(function ($value, $attributes) {
-            return isset($attributes['photo']) ? Storage::url( $attributes['photo']) : null;
+            return isset($attributes['photo'])
+                ? Storage::url($attributes['photo'])
+                : asset('files/icons/avatar.svg');
         });
     }
 
@@ -87,18 +90,19 @@ class Company extends Model
         });
     }
 
-    protected function photo(): Attribute
-    {
-        return Attribute::make(
-            set: function ($value){
-                if ($value){
-                    $version = Str::random(10);
-                    $photoPath = explode('?', $value)[0];
-                    return "{$photoPath}?=v{$version}";
-                }
+//    protected function photo(): Attribute
+//    {
+//        return Attribute::make(
+//            set: function ($value){
+//                if ($value){
+//                    $version = Str::random(10);
+//                    $photoPath = explode('?', $value)[0];
+//                    return "{$photoPath}?=v{$version}";
+//                }
+//
+//                return $value;
+//            },
+//        );
+//    }
 
-                return $value;
-            },
-        );
-    }
 }

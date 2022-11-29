@@ -125,19 +125,26 @@ class CompanyController extends Controller
             'twitter' => 'nullable|string|min:1|max:191',
             'location' => 'nullable|string|min:2|max:191',
             'status' => 'required|boolean',
+            'photo' => ['nullable','image','mimes:jpg,jpeg,png', 'max:1024'],
             'meta' => 'nullable|array',
             'description' => 'array',
         ]);
 
+        if ($company->photo) {
+            Storage::delete($company->photo);
+        }
+
+        $photo = $request->file('photo')->storePublicly('company');
+
         $company->name = $request->get('name');
         $company->slug = $request->get('slug');
-        $company->photo = $request->get('photo');
         $company->status = $request->get('status');
         $company->location = $request->get('location');
         $company->url = $request->get('url');
         $company->twitter = $request->get('twitter');
         $company->description = $request->get('description');
         $company->meta = $request->get('meta');
+        $company->photo = $photo;
         $company->status = $request->get('status');
         $company->save();
 
@@ -173,6 +180,16 @@ class CompanyController extends Controller
         $photoPath = "company-logo/{$companySlug}{$fileExtension}";
         Storage::put($photoPath, $response->body(),'public');
         $company->photo = $photoPath;
+        $company->save();
+
+        return back();
+    }
+
+    public function destroyPhoto($companyId)
+    {
+        $company = Company::query()->findOrFail($companyId);
+        Storage::delete($company->photo);
+        $company->photo = null;
         $company->save();
 
         return back();

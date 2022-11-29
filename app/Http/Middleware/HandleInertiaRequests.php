@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
     {
         $user = null;
         if ($request->user()){
-            $user = array_merge($request->user()->only('name', 'email','profile_photo_url'),[
+            $user = array_merge($request->user()->only('name', 'email','profile_photo_url', 'profile_photo_path'),[
                 'isAdmin' => Helpers::isAdmin(),
             ]);
         }
