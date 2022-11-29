@@ -26,7 +26,7 @@ defineProps({
 
         <section class="my-8 px-4 container mx-auto grid md:grid-cols-4 gap-6">
             <div v-for="company in companies.data" class="card bg-white flex items-center">
-                <img v-if="company.photo" :src="company.photo" :alt="company.name" class="rounded-full h-24 w-24 object-cover">
+                <img v-if="company.photo" :src="company.photoUrl" :alt="company.name" class="rounded-full h-24 w-24 object-cover">
 
                 <div class="md:pl-4">
                     {{ company.name }}

@@ -21,7 +21,8 @@ class CompanyResource extends JsonResource
             'phone' => $this->phone,
             'location' => $this->location,
             'description' => $this->description,
-            'photo' => $this->photo_url,
+            'photo' => $this->photo,
+            'photoUrl' => $this->photo_url,
         ];
     }
 }
