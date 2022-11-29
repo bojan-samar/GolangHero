@@ -97,7 +97,10 @@ const store = () => {
     }
     form.description = state.editor.getJSON();
     form.post(route('admin.company.update', props.company.id), {
-        onSuccess: () => clearPhotoFileInput(),
+        onSuccess: () => {
+            clearPhotoFileInput()
+            form.importPhotoUrl = null;
+        },
     })
 };
 
