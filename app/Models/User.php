@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\Models\Account\Worker;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -79,6 +82,35 @@ class User extends Authenticatable
         });
     }
 
+
+    public function scopeFilter($query)
+    {
+        request()->validate([
+            'search' => 'nullable|string|min:2|max:100',
+        ]);
+
+        if ($search = request()->search) {
+            collect(explode(' ', $search))->each(function ($term, $key) use ($query) {
+                $term = "%$term%";
+                $query->where('username', 'LIKE', $term)
+                    ->orWhere('name', 'LIKE', $term)
+                    ->orWhere('email', 'LIKE', $term);
+            });
+        }
+
+        //If sort else latest.
+        if ($sort = request()->get('sort')) {
+            $direction = request()->get('direction') ?? 'asc';
+            $query = $query->orderBy($sort, $direction);
+        } else {
+            $query->latest();
+        }
+
+        return $query;
+    }
+
+
+
     public function hasRole($role){
         //CHECK IF ROLE REQUESTED EXISTS
         if (! in_array($role, $this->roles)){
@@ -102,6 +134,13 @@ class User extends Authenticatable
         return $this->profile_photo_path
             ? Storage::disk($this->profilePhotoDisk())->url($this->profile_photo_path)
             : asset('files/icons/avatar.svg');
+    }
+
+    public function createdAtDateString(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            return $attributes['created_at'] ? Carbon::parse($attributes['created_at'])->format('M d, Y') : null;
+        });
     }
 
     public function worker()

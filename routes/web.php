@@ -97,6 +97,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::resource('job-import', App\Http\Controllers\Admin\JobImportController::class);
     Route::post('company-download-logo', [App\Http\Controllers\Admin\CompanyController::class, 'downloadLogo'])->name('company.download-logo');
     Route::resource('worker', App\Http\Controllers\Admin\WorkerController::class);
+    Route::resource('user', App\Http\Controllers\Admin\UserController::class);
 });
 
 

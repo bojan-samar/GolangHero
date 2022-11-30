@@ -47,6 +47,7 @@ class Worker extends Model
         return $query;
     }
 
+
     public function createdAtDateString(): Attribute
     {
         return Attribute::get(function ($value, $attributes) {
