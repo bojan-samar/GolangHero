@@ -41,13 +41,15 @@ class CompanyController extends Controller
      */
     public function create(Request $request)
     {
-        $company = null;
+        $company = ['name' => null, 'slug' => null];
+
         if ($name = $request->get('name')){
             $company = [
                 'name' => $name,
                 'slug' => Str::slug($name)
             ];
         }
+
         return Inertia::render('Admin/Company/Create', compact('company'));
     }
 
@@ -67,7 +69,21 @@ class CompanyController extends Controller
             'twitter' => 'nullable|string|min:1|max:191',
             'description' => 'array',
             'status' => 'required|boolean',
+            'photo' => ['nullable','image','mimes:jpg,jpeg,png', 'max:1024'],
+            'importPhotoUrl' => 'nullable|url|min:2|max:1000',
         ]);
+
+        $photo = null;
+        $startOfDayStamp = Carbon::now()->startOfDay()->timestamp;
+
+        //Check if photo uploaded and check if photo url imported
+        if ($request->has('photo')){
+            $photo = $request->file('photo')->storePublicly('company/' . $startOfDayStamp);
+        }elseif ( $importPhotoUrl = $request->get('importPhotoUrl') ){
+            $response = Http::get($importPhotoUrl);
+            $photo = 'company/' . $startOfDayStamp . '/' . Str::random(20) . '.jpg';
+            Storage::put($photo, $response->body(),'public');
+        }
 
         $company = new Company;
         $company->name = $request->get('name');
@@ -77,6 +93,7 @@ class CompanyController extends Controller
         $company->twitter = $request->get('twitter');
         $company->description = $request->get('description');
         $company->status = $request->get('status');
+        $company->photo = $photo;
         $company->save();
 
         return redirect()->route('admin.company.index');

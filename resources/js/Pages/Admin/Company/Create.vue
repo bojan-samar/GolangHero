@@ -6,7 +6,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import ActionMessage from '@/Components/ActionMessage.vue';
@@ -38,9 +38,35 @@ const form = useForm({
     description: null,
     twitter: null,
     status: true,
+    photo: null,
+    importPhotoUrl: null,
 });
 
+const photoPreview = ref(null);
+const photoInput = ref(null);
+
+const selectNewPhoto = () => {
+    photoInput.value.click();
+};
+
+const updatePhotoPreview = () => {
+    const photo = photoInput.value.files[0];
+
+    if (!photo) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        photoPreview.value = e.target.result;
+    };
+
+    reader.readAsDataURL(photo);
+};
+
 const store = () => {
+    if (photoInput.value) {
+        form.photo = photoInput.value.files[0];
+    }
     form.description = state.editor.getJSON();
     form.post(route('admin.company.store'))
 };
@@ -193,9 +219,61 @@ const store = () => {
                         <InputError :message="form.errors.description" class="mt-2"/>
                     </section>
 
+                    <!-- Company Photo -->
+                    <section class="col-span-6 sm:col-span-4 mt-4">
+                        <!-- Profile Photo File Input -->
+                        <input
+                            ref="photoInput"
+                            type="file"
+                            class="hidden"
+                            @change="updatePhotoPreview"
+                        >
+
+                        <InputLabel for="photo" value="Photo"/>
+
+                        <!-- Current Profile Photo -->
+                        <div v-show="! photoPreview" class="mt-2">
+                            <img src="/files/icons/avatar.svg" class="rounded-full h-20 w-20 object-cover">
+                        </div>
+
+                        <!-- New Profile Photo Preview -->
+                        <div v-show="photoPreview" class="mt-2">
+                    <span
+                        class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
+                        :style="'background-image: url(\'' + photoPreview + '\');'"
+                    />
+                        </div>
+
+                        <SecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
+                            Select A New Photo
+                        </SecondaryButton>
+
+                        <SecondaryButton
+                            v-if="company.photo"
+                            type="button"
+                            class="mt-2"
+                            @click.prevent="deletePhoto"
+                        >
+                            Remove Photo
+                        </SecondaryButton>
+
+                        <InputError :message="form.errors.photo" class="mt-2"/>
+                    </section>
+
+
+                    <section class="mt-4">
+                        <div>
+                            <InputLabel for="importPhotoUrl" value="Import Url"/>
+                            <TextInput id="importPhotoUrl" type="text" class="mt-1 block w-full"
+                                       v-model="form.importPhotoUrl"/>
+                            <InputError :message="form.errors.importPhotoUrl" class="mt-2"/>
+                        </div>
+                    </section>
+
 
                     <section class="mt-6">
-                        <label for="default-toggle" class="switch toggle-input inline-flex relative items-center cursor-pointer">
+                        <label for="default-toggle"
+                               class="switch toggle-input inline-flex relative items-center cursor-pointer">
                             <input type="checkbox" value="" id="default-toggle" class="sr-only peer"
                                    v-model="form.status">
                             <span
