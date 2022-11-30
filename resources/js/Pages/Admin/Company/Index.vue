@@ -41,7 +41,6 @@ defineProps({
                         <table-cell>
                             <Link :href="route('admin.company.edit', company.id)">
                                 <img v-if="company.photo_url" :src="company.photo_url" :alt="company.name" class="rounded-full h-8 w-8 mr-2 object-cover inline-flex">
-
                                 {{ company.name }}
                             </Link>
                         </table-cell>

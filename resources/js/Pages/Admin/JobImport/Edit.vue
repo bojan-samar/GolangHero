@@ -264,7 +264,7 @@ const search = () => {
                     <div>
                         <div>
                             Import Company:
-                            <a target="_blank" class="link" :href="'https://www.google.com/search?q=' + job.company_name.replace(' ', '+')">
+                            <a target="_blank" class="link" :href="'https://www.google.com/search?q=twitter ' + job.company_name.replace(' ', '+')">
                                 {{ job.company_name }}
                             </a>
                         </div>
