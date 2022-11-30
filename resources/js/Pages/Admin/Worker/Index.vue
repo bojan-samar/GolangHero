@@ -33,15 +33,13 @@ defineProps({
                 <template #body>
                     <table-row v-for="worker in workers.data">
                         <table-cell>
-                            <Link :href="route('admin.company.edit', worker.id)">
+                            <Link :href="route('admin.worker.edit', worker.user.username)">
                                 {{ worker.user.name }}
                             </Link>
                         </table-cell>
 
                         <table-cell>
-                            <Link :href="route('admin.company.edit', worker.id)">
-                                {{ worker.created_at_date_string }}
-                            </Link>
+                            {{ worker.created_at_date_string }}
                         </table-cell>
                     </table-row>
                 </template>
