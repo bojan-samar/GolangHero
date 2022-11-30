@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\Order;
@@ -31,6 +32,7 @@ class JobCreateController extends Controller
         $companies = null;
         if (\request()->get('search')){
             $companies = Company::query()->filter()->paginate(50);
+            $companies = CompanyResource::collection($companies);
         }
 
         $drafts = Job::query()
