@@ -101,7 +101,7 @@ onMounted(() => {
             </div>
 
             <div class="mt-5">
-                <Link :href="route('apply.show', job.data.slug)">
+                <Link :href="route('apply.show', job.data.slug)" rel="nofollow">
                     <PrimaryButton class="p-4"><span class="px-4 py-0.5 text-base">Apply</span></PrimaryButton>
                 </Link>
             </div>
