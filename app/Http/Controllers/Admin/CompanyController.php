@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\CompanyTrait;
 use App\Models\Company;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -15,6 +16,7 @@ use Inertia\Inertia;
 
 class CompanyController extends Controller
 {
+    use CompanyTrait;
     /**
      * Display a listing of the resource.
      *
@@ -73,17 +75,7 @@ class CompanyController extends Controller
             'importPhotoUrl' => 'nullable|url|min:2|max:1000',
         ]);
 
-        $photo = null;
-        $startOfDayStamp = Carbon::now()->startOfDay()->timestamp;
-
-        //Check if photo uploaded and check if photo url imported
-        if ($request->has('photo')){
-            $photo = $request->file('photo')->storePublicly('company/' . $startOfDayStamp);
-        }elseif ( $importPhotoUrl = $request->get('importPhotoUrl') ){
-            $response = Http::get($importPhotoUrl);
-            $photo = 'company/' . $startOfDayStamp . '/' . Str::random(20) . '.jpg';
-            Storage::put($photo, $response->body(),'public');
-        }
+        $photo = $this->handlePhotoUpload($request);
 
         $company = new Company;
         $company->name = $request->get('name');
@@ -149,22 +141,16 @@ class CompanyController extends Controller
         ]);
 
         $photo = $company->photo;
-        $deleteOriginalPhoto = false;
-        $startOfDayStamp = Carbon::now()->startOfDay()->timestamp;
-        //Check if photo uploaded and check if photo url imported
-        if ($request->has('photo')){
-            $photo = $request->file('photo')->storePublicly('company/' . $startOfDayStamp);
-            $deleteOriginalPhoto = true;
-        }elseif ( $importPhotoUrl = $request->get('importPhotoUrl') ){
-            $response = Http::get($importPhotoUrl);
-            $photo = 'company/' . $startOfDayStamp . '/' . Str::random(20) . '.jpg';
-            Storage::put($photo, $response->body(),'public');
-            $deleteOriginalPhoto = true;
-        }
+        $originalPhoto = $company->photo;
+        $newPhotoUpload = $this->handlePhotoUpload($request);
 
         //Delete original photo if new photo uploaded
-        if ($company->photo && $deleteOriginalPhoto){
+        if ($originalPhoto && $newPhotoUpload){
             Storage::delete($company->photo);
+        }
+
+        if ($newPhotoUpload){
+            $photo = $newPhotoUpload;
         }
 
 

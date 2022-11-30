@@ -6,7 +6,7 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import {onMounted, reactive} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 
@@ -26,15 +26,39 @@ onMounted(() => {
 
 const form = useForm({
     name: null,
-    slug: null,
     url: null,
     location: null,
     description: null,
     twitter: null,
-    status: null,
+    photo: null,
+    importPhotoUrl: null,
 });
 
+const photoPreview = ref(null);
+const photoInput = ref(null);
+
+const selectNewPhoto = () => {
+    photoInput.value.click();
+};
+
+const updatePhotoPreview = () => {
+    const photo = photoInput.value.files[0];
+
+    if (! photo) return;
+
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+        photoPreview.value = e.target.result;
+    };
+
+    reader.readAsDataURL(photo);
+};
+
 const store = () => {
+    if (photoInput.value) {
+        form.photo = photoInput.value.files[0];
+    }
     form.description = state.editor.getJSON();
     form.post(route('job-create.company.store'))
 };
@@ -43,7 +67,7 @@ const store = () => {
 
 
 <template>
-    <AppLayout title="Create Now Company">
+    <AppLayout title="Create New Company">
 
         <section class="max-w-4xl mx-auto mt-12">
             <Link :href="route('job-create')">
@@ -56,14 +80,14 @@ const store = () => {
             <section class="bg-white p-4 shadow rounded-lg mt-5">
                 <form @submit.prevent="store" class="mt-8" autocomplete="off">
                     <section>
-                        <InputLabel for="name" value="Name"/>
+                        <InputLabel for="name" value="Company Name"/>
                         <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required
                                    autofocus/>
                         <InputError :message="form.errors.name" class="mt-2"/>
                     </section>
 
 
-                    <section class="grid md:grid-cols-2 gap-6 mt-4">
+                    <section class="grid md:grid-cols-2 gap-6 mt-6">
                         <div>
                             <InputLabel for="url" value="Full URL "/>
                             <div class="text-sm">e.g. https://golanghero.com/</div>
@@ -80,9 +104,9 @@ const store = () => {
                     </section>
 
 
-                    <section class="grid md:grid-cols-2 gap-6 mt-4">
+                    <section class="grid md:grid-cols-2 gap-6 mt-6">
                         <div>
-                            <InputLabel for="twitter" value="Twitter Handle Only"/>
+                            <InputLabel for="twitter" value="Twitter (Username Only)"/>
                             <div class="text-sm">e.g. https://twitter.com/<span class="bg-yellow-200">GolangHero</span></div>
                             <TextInput id="twitter" type="text" class="mt-1 block w-full" v-model="form.twitter"/>
                             <InputError :message="form.errors.twitter" class="mt-2"/>
@@ -90,7 +114,52 @@ const store = () => {
                     </section>
 
 
-                    <section class="mt-4">
+                    <!-- Company Photo -->
+                    <section class="col-span-6 sm:col-span-4 mt-6">
+                        <!-- Profile Photo File Input -->
+                        <input
+                            ref="photoInput"
+                            type="file"
+                            class="hidden"
+                            @change="updatePhotoPreview"
+                        >
+
+                        <InputLabel for="photo" value="Photo"/>
+                        <div class="text-sm">Requirements: Square Image, png or jpg, less than 1mb</div>
+
+                        <!-- Current Profile Photo -->
+                        <div v-show="! photoPreview" class="mt-2">
+                            <img src="/files/icons/avatar.svg" class="rounded-full h-20 w-20 object-cover">
+                        </div>
+
+                        <!-- New Profile Photo Preview -->
+                        <div v-show="photoPreview" class="mt-2">
+                    <span
+                        class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
+                        :style="'background-image: url(\'' + photoPreview + '\');'"
+                    />
+                        </div>
+
+                        <SecondaryButton class="mt-2 mr-2" type="button" @click.prevent="selectNewPhoto">
+                            Select A New Photo
+                        </SecondaryButton>
+
+                        <InputError :message="form.errors.photo" class="mt-2"/>
+                    </section>
+
+                    <!-- Company Photo URL Import -->
+                    <section v-if="form.twitter" class="mt-6">
+                        <div>
+                            <InputLabel for="importPhotoUrl" value="Import Url"/>
+                            <TextInput id="importPhotoUrl" type="text" class="mt-1 block w-full"
+                                       v-model="form.importPhotoUrl"/>
+                            <InputError :message="form.errors.importPhotoUrl" class="mt-2"/>
+                        </div>
+                    </section>
+
+
+
+                    <section class="mt-6">
                         <InputLabel for="body" value="Description"/>
                         <section>
                             <div v-if="state.editor" class="flex items-center mt-4">
@@ -181,6 +250,7 @@ const store = () => {
                         </section>
                         <InputError :message="form.errors.description" class="mt-2"/>
                     </section>
+
 
 
                     <section class="mt-4">

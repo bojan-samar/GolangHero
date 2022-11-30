@@ -260,7 +260,7 @@ const store = () => {
                         <InputError :message="form.errors.photo" class="mt-2"/>
                     </section>
 
-
+                    <!-- Company Photo URL Import -->
                     <section class="mt-4">
                         <div>
                             <InputLabel for="importPhotoUrl" value="Import Url"/>

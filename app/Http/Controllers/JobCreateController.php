@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyResource;
+use App\Http\Traits\CompanyTrait;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\Order;
@@ -13,7 +14,7 @@ use Inertia\Inertia;
 
 class JobCreateController extends Controller
 {
-    use JobTrait;
+    use JobTrait, CompanyTrait;
 
 //    public function __construct()
 //    {
@@ -322,11 +323,15 @@ class JobCreateController extends Controller
     {
         $request->validate([
             'name' => 'required|string|min:2|max:191',
-            'url' => 'nullable|string|min:2|max:191|unique:companies,url',
+            'url' => 'nullable|url|min:2|max:191|unique:companies,url',
             'location' => 'nullable|string|min:2|max:191',
             'twitter' => 'nullable|string|min:1|max:191',
             'description' => 'array',
+            'photo' => ['nullable','image','mimes:jpg,jpeg,png', 'max:1024'],
+            'importPhotoUrl' => 'nullable|url|min:2|max:1000',
         ]);
+
+        $photo = $this->handlePhotoUpload($request);
 
         $name = $request->get('name');
         $company = new Company;
@@ -337,6 +342,7 @@ class JobCreateController extends Controller
         $company->twitter = $request->get('twitter');
         $company->description = $request->get('description');
         $company->status = 1;
+        $company->photo = $photo;
         $company->save();
 
         return redirect()->route('job-create', ['search' => $name]);

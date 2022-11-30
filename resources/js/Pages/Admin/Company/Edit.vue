@@ -111,7 +111,7 @@ const destroy = () => {
 
 
 <template>
-    <AdminLayout title="Job Import Edit">
+    <AdminLayout title="Company Edit">
 
         <section class="max-w-4xl mx-auto flex justify-between">
             <Link :href="route('admin.company.index')">
@@ -301,7 +301,7 @@ const destroy = () => {
                         <InputError :message="form.errors.photo" class="mt-2" />
                     </section>
 
-
+                    <!-- Company Photo Url Import -->
                     <section class="mt-4">
                         <div>
                             <InputLabel for="importPhotoUrl" value="Import Url"/>
