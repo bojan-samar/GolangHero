@@ -21,7 +21,7 @@ defineProps({
         </Head>
 
         <section class="max-w-3xl mx-auto py-12 px-8">
-            <SearchForm route-name="job.index"></SearchForm>
+            <SearchForm route-name="company.index"></SearchForm>
         </section>
 
         <section class="my-8 px-4 container mx-auto grid md:grid-cols-4 gap-6">
