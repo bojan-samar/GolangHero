@@ -49,7 +49,7 @@ class JobController extends Controller
             ->paginate(30)
             ->withQueryString();
 
-        $jobs->links = $jobs->onEachSide(1)->links();
+        $jobs->links = $jobs->onEachSide(0)->links();
 
         $jobs = JobResource::collection($jobs);
 
