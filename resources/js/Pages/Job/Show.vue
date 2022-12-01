@@ -60,7 +60,7 @@ onMounted(() => {
             <meta name="twitter:card" content="summary">
             <meta name="twitter:title" :content="job.data.title">
             <meta name="twitter:description" :content="job.data.title">
-            <meta property="og:image" content="" />
+            <meta property="og:image" :content="job.data.company.photoUrl" />
         </Head>
 
         <component :is="'style'">
