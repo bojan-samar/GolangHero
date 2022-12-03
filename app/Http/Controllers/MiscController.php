@@ -21,7 +21,7 @@ class MiscController extends Controller
     {
         $jobs = Job::query()
             ->active()
-            ->orderBy('order_by_date','desc')
+            ->orderBy('order_by_date', 'desc')
             ->with(['company'])
             ->paginate(80)
             ->withQueryString();
@@ -33,13 +33,6 @@ class MiscController extends Controller
         $companyCount = Company::query()->selectRaw("count(id) as companyCount")->active()->first();
         $companyCount = $companyCount->companyCount;
 
-        return Inertia::render('Welcome', compact('jobs','jobsTotalCount','companyCount'));
-    }
-
-    public function sitemap()
-    {
-        $jobs = Job::query()->latest()->get();
-        return response()->view('sitemap', compact('jobs'))
-            ->header('Content-Type', 'text/xml');
+        return Inertia::render('Welcome', compact('jobs', 'jobsTotalCount', 'companyCount'));
     }
 }

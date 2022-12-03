@@ -39,7 +39,8 @@ Route::get('thank-you/{slug}', [App\Http\Controllers\CheckoutController::class, 
 Route::resource('company', App\Http\Controllers\CompanyController::class);
 Route::resource('job', App\Http\Controllers\JobController::class);
 
-Route::get('/sitemap.xml', [App\Http\Controllers\MiscController::class, 'sitemap'])->name('sitemap');
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap.index');
+Route::get('/sitemap-jobs.xml', [App\Http\Controllers\SitemapController::class, 'jobs'])->name('sitemap.jobs');
 
 
 Route::get('worker', [\App\Http\Controllers\WorkerController::class,'index'])->name('worker.index');

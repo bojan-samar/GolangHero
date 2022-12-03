@@ -13,12 +13,7 @@
         <priority>0.90</priority>
     </url>
 
-    @foreach ($jobs as $job)
-        <url>
-            <loc>{{ route('job.show', $job->slug) }}</loc>
-            <lastmod>{{ $job->created_at->tz('UTC')->toAtomString() }}</lastmod>
-{{--            <changefreq>weekly</changefreq>--}}
-            <priority>0.8</priority>
-        </url>
-    @endforeach
+    <sitemap>
+        <loc>{{ route('sitemap.jobs') }}</loc>
+    </sitemap>
 </urlset>
