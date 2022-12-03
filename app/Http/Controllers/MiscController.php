@@ -36,4 +36,10 @@ class MiscController extends Controller
         return Inertia::render('Welcome', compact('jobs','jobsTotalCount','companyCount'));
     }
 
+    public function sitemap()
+    {
+        $jobs = Job::all();
+        return response()->view('sitemap', compact('jobs'))
+            ->header('Content-Type', 'text/xml');
+    }
 }
