@@ -38,7 +38,7 @@ class MiscController extends Controller
 
     public function sitemap()
     {
-        $jobs = Job::all();
+        $jobs = Job::query()->latest()->get();
         return response()->view('sitemap', compact('jobs'))
             ->header('Content-Type', 'text/xml');
     }
