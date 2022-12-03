@@ -1,6 +1,5 @@
 <?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
     <url>
         <loc>https://golanghero.com/</loc>
         <lastmod>2022-11-09T05:51:11+00:00</lastmod>
@@ -12,8 +11,11 @@
         <lastmod>2022-11-09T05:51:11+00:00</lastmod>
         <priority>0.90</priority>
     </url>
+</urlset>
 
+
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <sitemap>
         <loc>{{ route('sitemap.jobs') }}</loc>
     </sitemap>
-</urlset>
+</sitemapindex>
