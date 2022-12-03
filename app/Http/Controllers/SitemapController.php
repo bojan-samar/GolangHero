@@ -13,6 +13,12 @@ class SitemapController extends Controller
             ->header('Content-Type', 'text/xml');
     }
 
+    public function main()
+    {
+        return response()->view('sitemap.main')
+            ->header('Content-Type', 'text/xml');
+    }
+
     public function jobs()
     {
         $jobs = Job::query()->latest()->get();
