@@ -5,10 +5,4 @@
         <lastmod>2022-11-09T05:51:11+00:00</lastmod>
         <priority>1.00</priority>
     </url>
-
-    <url>
-        <loc>https://golanghero.com/job</loc>
-        <lastmod>2022-11-09T05:51:11+00:00</lastmod>
-        <priority>0.90</priority>
-    </url>
 </urlset>
