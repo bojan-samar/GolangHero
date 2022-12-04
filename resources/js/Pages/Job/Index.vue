@@ -4,19 +4,27 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import Paginator from '@/Components/Paginator.vue';
 import JobCard from "@/Components/Job/JobCard.vue";
 import SearchForm from "@/Components/SearchForm.vue";
+import {computed} from "vue";
 
 
-defineProps({
+const props = defineProps({
     jobs: Object,
     canonicalUrl: String
 });
+
+const titlePageNumber = computed(() => {
+    if (props.jobs.meta.current_page > 1){
+        return "Page " + props.jobs.meta.current_page;
+    }
+    return '';
+})
 
 </script>
 
 <template>
     <AppLayout>
         <Head>
-            <title>Golang Jobs. Find A Jobs Today</title>
+            <title>Golang Jobs. Find A Jobs Today {{ titlePageNumber }}</title>
             <meta name="description" content="Browse through hundreds of good paying Golang jobs and start your career today.">
             <link rel="canonical" :href="canonicalUrl" />
         </Head>
