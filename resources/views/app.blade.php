@@ -12,7 +12,7 @@
         @if(request()->routeIs('job.show'))
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:title" content="{{ $page['props']['job']['data']['title'] }}"/>
-            <meta name="twitter:description" content="{{ $page['props']['job']['data']['description'] }}"/>
+{{--            <meta name="twitter:description" content="{{ $page['props']['job']['data']['description'] }}"/>--}}
             <meta name="twitter:site" content="@golanghero"/>
             <meta name="twitter:image" content="{{ $page['props']['job']['data']['company']['photoUrl'] }}"/>
             <meta name="twitter:creator" content="@golanghero"/>
