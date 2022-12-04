@@ -9,6 +9,14 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        @if(request()->routeIs('job.show'))
+            <meta name="twitter:card" content="summary"/>
+            <meta name="twitter:title" content="{{ $page['props']['job']['data']['title'] }}"/>
+            <meta name="twitter:description" content="{{ $page['props']['job']['data']['description'] }}"/>
+            <meta name="twitter:site" content="@golanghero"/>
+            <meta name="twitter:image" content="{{ $page['props']['job']['data']['company']['photoUrl'] }}"/>
+            <meta name="twitter:creator" content="@golanghero"/>
+        @endif
 
         <!-- Scripts -->
         @routes
