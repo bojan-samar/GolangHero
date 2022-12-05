@@ -9,6 +9,7 @@ use App\Models\Job;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use \App\Http\Traits\JobTrait;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
@@ -344,6 +345,10 @@ class JobCreateController extends Controller
         $company->status = 1;
         $company->photo = $photo;
         $company->save();
+
+        Mail::raw('New Company Created: ' . $company->name, function ($message) {
+            $message->to("bojan.samar@proton.me")->subject('New Worker Created');
+        });
 
         return redirect()->route('job-create', ['search' => $name]);
     }
