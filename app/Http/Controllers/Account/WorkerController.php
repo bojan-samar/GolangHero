@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Models\Account\Worker;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class WorkerController extends Controller
@@ -46,6 +47,10 @@ class WorkerController extends Controller
         Worker::query()->create([
            'user_id' => auth()->user()->id
         ]);
+
+        Mail::raw('New Worker Created: ' . auth()->user()->name, function ($message) {
+            $message->to( config('mail.from.address') )->subject('New Worker Created');
+        });
 
         return redirect()->route('account.worker.index');
     }
