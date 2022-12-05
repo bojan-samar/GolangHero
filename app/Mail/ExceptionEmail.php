@@ -15,16 +15,18 @@ class ExceptionEmail extends Mailable
 
     public $css;
     public $content;
+    public $fullUrl;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($css, $content)
+    public function __construct($css, $content, $fullUrl)
     {
         $this->css = $css;
         $this->content = $content;
+        $this->fullUrl = $fullUrl;
     }
 
     /**
@@ -35,7 +37,7 @@ class ExceptionEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Exception Email',
+            subject: 'New Exception Email',
         );
     }
 

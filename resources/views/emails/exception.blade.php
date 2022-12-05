@@ -5,6 +5,7 @@
     <style>{!! $css ?? '' !!}</style>
 </head>
 <body>
+{{ $fullUrl }}
 {!! $content ?? '' !!}
 </body>
 </html>
