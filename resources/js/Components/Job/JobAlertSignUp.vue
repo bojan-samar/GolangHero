@@ -54,8 +54,8 @@ const submit = () => {
 
         </form>
 
-        <ActionMessage :on="form.recentlySuccessful" class="mt-2 text-green-500 font-medium">
-            Saved.
+        <ActionMessage :on="form.recentlySuccessful" class="mt-2 font-medium">
+            <span class="text-green-500">Saved.</span>
         </ActionMessage>
     </section>
 </template>

@@ -4,17 +4,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 //Route::get('/', function () {
 //    return Inertia::render('Welcome', [
 //        'canLogin' => Route::has('login'),
@@ -67,7 +56,6 @@ Route::group(['prefix' => 'account', 'as' => 'account.', 'middleware' => ['auth:
 
 //Auth
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
@@ -98,6 +86,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:sanc
     Route::resource('blog', App\Http\Controllers\Admin\BlogController::class);
     Route::delete('blog-photo/{slug}', [\App\Http\Controllers\Admin\BlogController::class,'destroyPhoto'])->name('blog-photo.destroy');
     Route::resource('job', App\Http\Controllers\Admin\JobController::class);
+    Route::resource('job-alert', App\Http\Controllers\Admin\JobAlertController::class);
     Route::get('job-tweet/{slug}', [\App\Http\Controllers\Admin\JobController::class,'tweet'])->name('job.tweet');
     Route::resource('job-import', App\Http\Controllers\Admin\JobImportController::class);
     Route::post('company-download-logo', [App\Http\Controllers\Admin\CompanyController::class, 'downloadLogo'])->name('company.download-logo');
