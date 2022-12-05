@@ -4,7 +4,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import JobCard from "@/Components/Job/JobCard.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-
+import JobAlertSignUp from "@/Components/Job/JobAlertSignUp.vue";
 
 defineProps({
     jobs: Object,
@@ -89,6 +89,9 @@ defineProps({
             <div class="max-w-3xl mx-auto">
                 <h2 class="mb-5 font-bold tracking-wider text-3xl text-center">Recent Jobs</h2>
 
+                <section class="max-w-3xl mx-auto px-4 my-12">
+                    <JobAlertSignUp></JobAlertSignUp>
+                </section>
 
                 <template v-for="(job, index) in jobs.data">
                     <JobCard :job="job"></JobCard>

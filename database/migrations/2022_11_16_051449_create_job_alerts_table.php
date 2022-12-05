@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('email');
-            $table->unsignedTinyInteger('frequencyy');
+            $table->unsignedTinyInteger('frequency');
             $table->string('keywords')->nullable();
             $table->timestamp('last_email_date')->nullable();
             $table->timestamp('next_email_date')->nullable();

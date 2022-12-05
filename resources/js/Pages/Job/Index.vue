@@ -5,6 +5,7 @@ import Paginator from '@/Components/Paginator.vue';
 import JobCard from "@/Components/Job/JobCard.vue";
 import SearchForm from "@/Components/SearchForm.vue";
 import {computed} from "vue";
+import JobAlertSignUp from "@/Components/Job/JobAlertSignUp.vue";
 
 
 const props = defineProps({
@@ -29,8 +30,8 @@ const titlePageNumber = computed(() => {
             <link rel="canonical" :href="canonicalUrl" />
         </Head>
 
-        <section class="max-w-3xl mx-auto py-12 px-8">
-            <SearchForm route-name="job.index"></SearchForm>
+        <section class="max-w-3xl mx-auto px-4 mt-12">
+            <JobAlertSignUp></JobAlertSignUp>
         </section>
 
         <section class="my-8 px-4 max-w-3xl mx-auto">
