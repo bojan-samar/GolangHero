@@ -49,7 +49,7 @@ class WorkerController extends Controller
         ]);
 
         Mail::raw('New Worker Created: ' . auth()->user()->name, function ($message) {
-            $message->to( config('mail.from.address') )->subject('New Worker Created');
+            $message->to("bojan.samar@proton.me")->subject('New Worker Created');
         });
 
         return redirect()->route('account.worker.index');
