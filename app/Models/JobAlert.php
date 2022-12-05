@@ -36,6 +36,19 @@ class JobAlert extends Model
         });
     }
 
+    public function scopeFilter($query)
+    {
+        request()->validate([
+            'search' => 'nullable|string|min:2|max:100',
+        ]);
+
+        if ($search = request()->search) {
+            $query->where('email', 'LIKE', "%$search%");
+        }
+
+        return $query;
+    }
+
     public function createdAtDateString(): Attribute
     {
         return Attribute::get(function ($value, $attributes) {

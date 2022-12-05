@@ -16,7 +16,7 @@ class JobAlertController extends Controller
      */
     public function index()
     {
-        $alerts = JobAlert::query()->latest()->paginate(50)->withQueryString();
+        $alerts = JobAlert::query()->filter()->paginate(50)->withQueryString();
         $alerts->append('created_at_date_string');
         $alerts->links = $alerts->onEachSide(0)->links();
 
