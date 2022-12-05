@@ -2,8 +2,8 @@
 import {Link} from '@inertiajs/inertia-vue3';
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import {ref} from "vue";
 import DangerButton from '@/Components/DangerButton.vue';
+import {ref} from "vue";
 import {Inertia} from "@inertiajs/inertia";
 import DialogModal from '@/Components/DialogModal.vue';
 
@@ -16,6 +16,7 @@ const confirmingAlertDeletion = ref(false);
 const destroyAlert = () => {
     Inertia.delete(route('admin.job-alert.destroy', props.alert.uuid))
 };
+
 </script>
 
 
