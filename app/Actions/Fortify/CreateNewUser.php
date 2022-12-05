@@ -29,7 +29,7 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         Mail::raw('New User Created: ' . $input['name'], function ($message) {
-            $message->to("bojan.samar@proton.me")->subject('New User Created');
+            $message->to( env('MAIL_TO_ADDRESS') )->subject('New User Created');
         });
 
         return User::create([

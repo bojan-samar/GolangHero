@@ -347,7 +347,7 @@ class JobCreateController extends Controller
         $company->save();
 
         Mail::raw('New Company Created: ' . $company->name, function ($message) {
-            $message->to("bojan.samar@proton.me")->subject('New Worker Created');
+            $message->to( env('MAIL_TO_ADDRESS') )->subject('New Company Created');
         });
 
         return redirect()->route('job-create', ['search' => $name]);

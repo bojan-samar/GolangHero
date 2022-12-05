@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Mail\ExceptionEmail;
+use http\Client\Request;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
+use Symfony\Component\ErrorHandler\Exception\FlattenException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -44,7 +49,21 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
+            $e = FlattenException::create($e);
+            $handler = new HtmlErrorRenderer(true); // boolean, true raises debug flag...
+            $css = $handler->getStylesheet();
+            $content = $handler->getBody($e);
+            $fullUrl = \request()->fullUrl();
+
+            Mail::to( env('MAIL_TO_ADDRESS') )->send(new ExceptionEmail($css, $content, $fullUrl));
+
+//            Mail::send('emails.exception', compact('css','content'), function ($message) {
+//                $message
+//                    ->to( env('MAIL_TO_ADDRESS') )
+//                    ->subject('Exception: ')
+//                ;
+//            });
+
         });
     }
 }
