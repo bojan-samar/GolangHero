@@ -45,15 +45,6 @@ class ApplyController extends Controller
         $application->resume = json_encode($request->get('resume'));
         $application->save();
 
-        $application->job = $job;
-
-        $trackingModel = new Tracking;
-        $tracking = $trackingModel->getTracking();
-        if ($tracking){
-            $tracking = new Tracking($tracking);
-            $application->tracking()->save($tracking);
-        }
-
         return Inertia::render('Apply/Success');
     }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->text('description');
+            $table->text('resume');
             $table->timestamps();
         });
     }

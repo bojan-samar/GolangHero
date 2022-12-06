@@ -18,8 +18,13 @@ class Application extends Model
     public static function boot()
     {
         parent::boot();
+
         static::creating(function($model){
             $model->uuid = Str::uuid();
+        });
+
+        static::created(function($model){
+            Tracking::storeTracking($model);
         });
     }
 
