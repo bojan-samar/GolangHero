@@ -38,7 +38,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         $user = null;
-        if ($request->user()){
+        if (auth()->check()){
             $user = array_merge($request->user()->only('name', 'email','profile_photo_url', 'profile_photo_path'),[
                 'isAdmin' => Helpers::isAdmin(),
             ]);

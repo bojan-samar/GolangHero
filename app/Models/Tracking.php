@@ -14,13 +14,12 @@ class Tracking extends Model
 
     protected $casts = ['utm' => 'array'];
 
-    public function getTracking()
+    public static function storeTracking($model)
     {
         if ($tracking = Cookie::get('tracking')){
-            return json_decode($tracking, true);
+            $tracking = json_decode($tracking, true);
+            $model->tracking()->save(new Tracking($tracking));
         }
-
-        return null;
     }
 
     public function trackable()

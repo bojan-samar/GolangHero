@@ -76,9 +76,14 @@ class User extends Authenticatable
     public static function boot()
     {
         parent::boot();
+
         static::creating(function($model){
             $model->uuid = Str::uuid();
             $model->username = Str::uuid();
+        });
+
+        static::created(function($model){
+            Tracking::storeTracking($model);
         });
     }
 
@@ -141,6 +146,11 @@ class User extends Authenticatable
         return Attribute::get(function ($value, $attributes) {
             return $attributes['created_at'] ? Carbon::parse($attributes['created_at'])->format('M d, Y') : null;
         });
+    }
+
+    public function tracking()
+    {
+        return $this->morphOne(Tracking::class, 'trackable');
     }
 
     public function worker()
