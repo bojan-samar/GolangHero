@@ -46,10 +46,6 @@ class ApplyController extends Controller
         $application->resume = json_encode($request->get('resume'));
         $application->save();
 
-        Mail::raw('New Application Submitted: ' . $application->name, function ($message) {
-            $message->to( env('MAIL_TO_ADDRESS') )->subject('New Application Submitted');
-        });
-
         return Inertia::render('Apply/Success');
     }
 }

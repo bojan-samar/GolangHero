@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class Application extends Model
@@ -25,6 +26,10 @@ class Application extends Model
 
         static::created(function($model){
             Tracking::storeTracking($model);
+
+            Mail::raw('New Application Submitted: ' . $model->name, function ($message) {
+                $message->to( env('MAIL_TO_ADDRESS') )->subject('New Application Submitted');
+            });
         });
     }
 

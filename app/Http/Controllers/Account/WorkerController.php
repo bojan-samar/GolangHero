@@ -48,10 +48,6 @@ class WorkerController extends Controller
            'user_id' => auth()->user()->id
         ]);
 
-        Mail::raw('New Worker Created: ' . auth()->user()->name, function ($message) {
-            $message->to( env('MAIL_TO_ADDRESS') )->subject('New Worker Created');
-        });
-
         return redirect()->route('account.worker.index');
     }
 

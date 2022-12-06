@@ -2,12 +2,15 @@
 
 namespace App\Models\Account;
 
+use App\Models\Tracking;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class Worker extends Model
 {
@@ -19,6 +22,17 @@ class Worker extends Model
     protected $hidden = ['id', 'user_id'];
 
     protected $guarded = [];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($model){
+            Mail::raw('New Worker Created: ' . auth()->user()->name, function ($message) {
+                $message->to( env('MAIL_TO_ADDRESS') )->subject('New Worker Created');
+            });
+        });
+    }
 
     public function scopePublic($query)
     {
