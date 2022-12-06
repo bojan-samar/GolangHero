@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Job;
 use App\Models\Tracking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class ApplyController extends Controller
@@ -44,6 +45,10 @@ class ApplyController extends Controller
         $application->phone = $request->get('phone');
         $application->resume = json_encode($request->get('resume'));
         $application->save();
+
+        Mail::raw('New Application Submitted: ' . $application->name, function ($message) {
+            $message->to( env('MAIL_TO_ADDRESS') )->subject('New Application Submitted');
+        });
 
         return Inertia::render('Apply/Success');
     }
