@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 
 class SitemapController extends Controller
@@ -21,7 +22,7 @@ class SitemapController extends Controller
 
     public function jobs()
     {
-        $jobs = Job::query()->latest()->get();
+        $jobs = JobPost::query()->latest()->get();
 
         return response()->view('sitemap.jobs', compact('jobs'))
             ->header('Content-Type', 'text/xml');

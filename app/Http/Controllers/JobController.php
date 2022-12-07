@@ -6,6 +6,7 @@ use App\Helpers\Helpers;
 use App\Http\Resources\JobResource;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -41,13 +42,14 @@ class JobController extends Controller
             Log::alert('Bot Searching Jobs - ' . \request()->search);
         }
 
-        $jobs = Job::query()
+        $jobs = JobPost::query()
             ->filter()
             ->active()
             ->orderBy('order_by_date','desc')
             ->with(['company'])
             ->paginate(30)
             ->withQueryString();
+
 
         $jobs->links = $jobs->onEachSide(0)->links();
 
@@ -90,14 +92,14 @@ class JobController extends Controller
      */
     public function show($slug)
     {
-        $jobOriginal = Job::query()
+        $jobOriginal = JobPost::query()
             ->where('slug', $slug)
             ->with(['company'])
             ->firstOrFail();
 
         $job = JobResource::make($jobOriginal);
 
-        $similarJobs = DB::table('jobs')
+        $similarJobs = DB::table('job_posts')
             ->select('*')
             ->selectRaw("MATCH (`title`) AGAINST ('". $jobOriginal->title ."' IN NATURAL LANGUAGE MODE) AS score")
             ->where([
@@ -113,7 +115,7 @@ class JobController extends Controller
         if ($similarJobs->count()){
             $secondJobSlug = $similarJobs[0]->slug;
             $secondJob = JobResource::make(
-                Job::where('slug', $secondJobSlug)->with('company')->first()
+                JobPost::where('slug', $secondJobSlug)->with('company')->first()
             );
         }
 
@@ -163,13 +165,13 @@ class JobController extends Controller
 
     public function success($slug)
     {
-        $job = Job::where('slug', $slug)->firstOrFail();
+        $job = JobPost::where('slug', $slug)->firstOrFail();
         return view('job.success', compact('job'));
     }
 
     public function apply($slug)
     {
-        $job = Job::where('slug', $slug)->with(['company', 'user'])->firstOrFail();
+        $job = JobPost::where('slug', $slug)->with(['company', 'user'])->firstOrFail();
         $alreadyApplied = Application::where([
             'user_id' => auth()->user()->id,
             'job_id' => $job->id
@@ -184,7 +186,7 @@ class JobController extends Controller
 
     public function remote()
     {
-        $jobs = Job::filter()
+        $jobs = JobPost::filter()
             ->where('remote', 1)
             ->active()
             ->orderBy('order_by_date','desc')
@@ -204,7 +206,7 @@ class JobController extends Controller
 
     public function jobTweet($uuid)
     {
-        $job = Job::where('uuid', $uuid)->with('company')->firstOrFail();
+        $job = JobPost::where('uuid', $uuid)->with('company')->firstOrFail();
         $job->meta = $job->meta ? array_merge($job->meta,['tweeted' => true]) : ['tweeted' => true];
         $job->save();
 

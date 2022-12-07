@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Job;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Inertia\Inertia;
@@ -17,7 +17,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::query()->filter()->latest()->with('company')->paginate(50)->withQueryString();
+        $jobs = JobPost::query()->filter()->latest()->with('company')->paginate(50)->withQueryString();
         $jobs->append(['created_at_date_string', 'tweeted']);
         $jobs->links = $jobs->onEachSide(1)->links();
 
@@ -92,7 +92,7 @@ class JobController extends Controller
 
     public function tweet($slug)
     {
-        $job = Job::where('slug', $slug)->with('company')->firstOrFail();
+        $job = JobPost::where('slug', $slug)->with('company')->firstOrFail();
         $job->meta = $job->meta ? array_merge($job->meta,['tweeted' => true]) : ['tweeted' => true];
         $job->save();
 

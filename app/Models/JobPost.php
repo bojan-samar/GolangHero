@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Http\Traits\JobTrait;
 
 
-class Job extends Model
+class JobPost extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -269,7 +269,7 @@ class Job extends Model
     }
 
     function order(){
-        return $this->hasOne(Order::class);
+        return $this->hasOne(Order::class, 'job_id', 'id');
     }
 
 

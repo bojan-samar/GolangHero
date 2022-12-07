@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\JobPost;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -12,7 +13,7 @@ class CheckoutController extends Controller
     public function checkout($jobSlug)
     {
         //Check if job exists.
-        $job = Job::query()->where('slug', $jobSlug)->with('order')->first();
+        $job = JobPost::query()->where('slug', $jobSlug)->with('order')->first();
         if (! $job){
             return redirect()->route('job-create')->with('flash.danger', 'This job does not exist. ');
         }
@@ -22,7 +23,7 @@ class CheckoutController extends Controller
             return redirect()->route('job-create')->with('flash.danger', 'This job was paid for already.');
         }
 
-        $jobModel = new Job;
+        $jobModel = new JobPost();
         $jobPrice = $jobModel->price;
 
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
@@ -44,7 +45,7 @@ class CheckoutController extends Controller
 
     public function thankYou(Request $request, $jobSlug)
     {
-        $job = Job::query()->where('slug', $jobSlug)->with('order')->firstOrFail();
+        $job = JobPost::query()->where('slug', $jobSlug)->with('order')->firstOrFail();
         //Check if order already in database for this job. Prevents duplicate orders if someone refreshes the page.
         if ($job->order){
             return Inertia::render('Checkout/ThankYou', [
@@ -56,7 +57,7 @@ class CheckoutController extends Controller
         $job->order_by_date = now();
         $job->save();
 
-        $jobModel = new Job;
+        $jobModel = new JobPost();
         $jobPrice = $jobModel->price;
 
         $order = new Order;

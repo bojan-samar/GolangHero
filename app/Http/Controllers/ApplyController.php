@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\JobResource;
 use App\Models\Application;
 use App\Models\Job;
+use App\Models\JobPost;
 use App\Models\Tracking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -14,7 +15,7 @@ class ApplyController extends Controller
 {
     public function show($jobSlug)
     {
-        $job = Job::query()
+        $job = JobPost::query()
             ->select('slug', 'title', 'company_id')
             ->where('slug', $jobSlug)
             ->with('company:id,name')
@@ -36,7 +37,7 @@ class ApplyController extends Controller
             'resume' => 'required|array|min:2',
         ]);
 
-        $job = Job::query()->where('slug', $request->get('jobSlug'))->firstOrFail();
+        $job = JobPost::query()->where('slug', $request->get('jobSlug'))->firstOrFail();
 
         $application = new Application;
         $application->job_id = $job->id;

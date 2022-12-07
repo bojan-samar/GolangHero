@@ -6,6 +6,7 @@ use App\Http\Resources\CompanyResource;
 use App\Http\Traits\CompanyTrait;
 use App\Models\Company;
 use App\Models\Job;
+use App\Models\JobPost;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use \App\Http\Traits\JobTrait;
@@ -37,7 +38,7 @@ class JobCreateController extends Controller
             $companies = CompanyResource::collection($companies);
         }
 
-        $drafts = Job::query()
+        $drafts = JobPost::query()
             ->select('title', 'slug')
             ->where('user_id', auth()->user()->id)->draft()->get();
 
@@ -46,7 +47,7 @@ class JobCreateController extends Controller
 
     public function details(Request $request, $companySlug)
     {
-        $jobModel = new Job;
+        $jobModel = new JobPost;
         $types = $jobModel->jobTypes;
         $company = Company::query()->where('slug', $companySlug)->first();
         $company = $company->only(['name', 'slug']);
@@ -57,36 +58,6 @@ class JobCreateController extends Controller
         return Inertia::render('JobCreate/Details', compact( 'company', 'types'));
     }
 
-
-
-    public function pay($jobUuid)
-    {
-        $job = Job::where('uuid', $uuid)->with('order')->firstOrFail();
-
-        if ($job->order){
-            return redirect()->route('job-create')->with('error','This job has been paid for already.');
-        }
-
-        //Activate job post if no additional cost to process.
-        $totalJobCost = $this->calculateTotal($job->meta);
-        if ($totalJobCost == 0){
-            $job->status = 1;
-            $job->save();
-
-            if (array_key_exists('useCredit', $job->meta)) {
-                if (\auth()->user()->credits > 0){
-                    auth()->user()->decrement('credits');
-                }
-            }
-
-            return redirect()->route('job.success', $job->slug);
-        }
-
-        return view('job.create.pay',[
-            'job' => $job,
-            'total' => $totalJobCost,
-        ]);
-    }
 
     public function store(Request $request)
     {
@@ -106,7 +77,7 @@ class JobCreateController extends Controller
         }
 
 
-        $job = new Job();
+        $job = new JobPost();
         $job->user_id = auth()->user()->id;
         $job->company_id = $company->id;
         $job->title = $request->title;
@@ -133,10 +104,10 @@ class JobCreateController extends Controller
             'location' => 'nullable|string|min:1|max:191',
         ]);
 
-        $job = Job::where('uuid', $request->uuid)->first();
+        $job = JobPost::where('uuid', $request->uuid)->first();
         if (!$job){
             $company = Company::where('uuid', $request->company_uuid)->firstOrFail();
-            $job = new Job();
+            $job = new JobPost();
             $job->company_id = $company->id;
         }
         $job->user_id = auth()->user()->id;
@@ -158,7 +129,7 @@ class JobCreateController extends Controller
             'pay_type' => 'nullable|string|min:1|max:191',
         ]);
 
-        $job = Job::where('uuid', $request->uuid)->firstOrFail();
+        $job = JobPost::where('uuid', $request->uuid)->firstOrFail();
         $job->pay_min = $request->pay_min;
         $job->pay_max = $request->pay_max;
         $job->pay_type = $request->pay_type;
@@ -174,7 +145,7 @@ class JobCreateController extends Controller
 
         $description = $request->description;
 
-        $job = Job::where('uuid', $request->uuid)->firstOrFail();
+        $job = JobPost::where('uuid', $request->uuid)->firstOrFail();
         $job->description = $description;
         $job->save();
     }
@@ -211,7 +182,7 @@ class JobCreateController extends Controller
             ];
         }
 
-        $job = Job::where('uuid', $request->uuid)->firstOrFail();
+        $job = JobPost::where('uuid', $request->uuid)->firstOrFail();
 
         $featuredDays = intval($request->get('featured'));
         if ($featuredDays){
@@ -269,7 +240,7 @@ class JobCreateController extends Controller
             'paymentMethod' => 'required|string|min:5|max:300',
         ]);
 
-        $job = Job::where('uuid', $request->job)->first();
+        $job = JobPost::where('uuid', $request->job)->first();
 
         if (! $job){
             return back()->with('error','Job Does Not Exist');

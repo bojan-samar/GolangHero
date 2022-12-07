@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->index();
-            $table->foreignId('job_id')->constrained();
+            $table->foreignId('job_id')->constrained('job_posts', 'id');
             $table->foreignId('user_id')->constrained();
             $table->string('processor');
             $table->string('processor_id');
