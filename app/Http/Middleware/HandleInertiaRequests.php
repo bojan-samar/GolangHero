@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'facebookPixel' => Helpers::getTrackingId('FACEBOOK_PIXEL'),
             ],
             'flash' => $request->session()->get('flash'),
+            'queueWorkerStart' => $request->session()->get('queueWorkerStart')
         ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyResource;
 use App\Http\Traits\CompanyTrait;
+use App\Jobs\SendRawEmailNotification;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\JobPost;
@@ -317,11 +318,9 @@ class JobCreateController extends Controller
         $company->photo = $photo;
         $company->save();
 
-        Mail::raw('New Company Created: ' . $company->name, function ($message) {
-            $message->to( env('MAIL_TO_ADDRESS') )->subject('New Company Created');
-        });
+        SendRawEmailNotification::dispatch('New Company Created', 'Company Name: ' . $company->name);
 
-        return redirect()->route('job-create', ['search' => $name]);
+        return redirect()->route('job-create', ['search' => $name])->with('queueWorkerStart', true);
     }
 
 }

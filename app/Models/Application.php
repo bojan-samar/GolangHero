@@ -26,10 +26,6 @@ class Application extends Model
 
         static::created(function($model){
             Tracking::storeTracking($model);
-
-            Mail::raw('New Application Submitted: ' . $model->name, function ($message) {
-                $message->to( env('MAIL_TO_ADDRESS') )->subject('New Application Submitted');
-            });
         });
     }
 

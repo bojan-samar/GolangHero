@@ -28,10 +28,6 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ])->validate();
 
-        Mail::raw('New User Created: ' . $input['name'], function ($message) {
-            $message->to( env('MAIL_TO_ADDRESS') )->subject('New User Created');
-        });
-
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

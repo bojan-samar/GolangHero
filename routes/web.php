@@ -36,6 +36,8 @@ Route::get('/sitemap-jobs.xml', [App\Http\Controllers\SitemapController::class, 
 Route::get('worker', [\App\Http\Controllers\WorkerController::class,'index'])->name('worker.index');
 Route::get('worker/{username}', [\App\Http\Controllers\WorkerController::class,'show'])->name('worker.show');
 
+Route::get('queue-worker-start', [\App\Http\Controllers\MiscController::class, 'queueWorkerStart'])->name('queueWorkerStart');
+
 
 //Route::get('/', function () {
 //    return Inertia::render('Welcome');

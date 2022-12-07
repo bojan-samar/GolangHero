@@ -23,17 +23,6 @@ class Worker extends Model
 
     protected $guarded = [];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function($model){
-            Mail::raw('New Worker Created: ' . auth()->user()->name, function ($message) {
-                $message->to( env('MAIL_TO_ADDRESS') )->subject('New Worker Created');
-            });
-        });
-    }
-
     public function scopePublic($query)
     {
         return $query->where('status', true);

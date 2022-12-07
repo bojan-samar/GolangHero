@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\JobResource;
+use App\Jobs\SendRawEmailNotification;
 use App\Models\Application;
 use App\Models\Job;
 use App\Models\JobPost;
@@ -47,6 +48,11 @@ class ApplyController extends Controller
         $application->resume = json_encode($request->get('resume'));
         $application->save();
 
-        return Inertia::render('Apply/Success');
+        $message = 'Name:'. $application->name;
+        $message .= " \nJob Title:" . $job->title;
+
+        SendRawEmailNotification::dispatch('New Application Submitted', $message);
+
+        return Inertia::render('Apply/Success')->with('queueWorkerStart', true);
     }
 }

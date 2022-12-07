@@ -22,6 +22,12 @@ onMounted(() => {
         gtag('js', new Date());
         gtag('config', `${googleAnalyticsTag}`);
     }
+
+    //Run Worker
+    if (usePage().props.value.queueWorkerStart){
+        axios.get(route('queueWorkerStart'))
+    }
+
 });
 
 const showingNavigationDropdown = ref(false);

@@ -6,6 +6,7 @@ use App\Http\Resources\JobResource;
 use App\Models\Company;
 use App\Models\JobPost;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
 
 class MiscController extends Controller
@@ -27,5 +28,11 @@ class MiscController extends Controller
         $companyCount = $companyCount->companyCount;
 
         return Inertia::render('Welcome', compact('jobs', 'jobsTotalCount', 'companyCount'));
+    }
+
+    public function queueWorkerStart()
+    {
+        //        $schedule->command('queue:work --stop-when-empty')->everyFiveMinutes();
+        Artisan::call('queue:work --stop-when-empty', []);
     }
 }
