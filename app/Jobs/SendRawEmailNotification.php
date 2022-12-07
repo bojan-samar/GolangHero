@@ -38,7 +38,7 @@ class SendRawEmailNotification implements ShouldQueue
     public function handle()
     {
         Mail::raw($this->message, function ($message) {
-            $message->to( config('mail.from.address') )->subject($this->subject);
+            $message->to( env('MAIL_TO_ADDRESS') )->subject($this->subject);
         });
     }
 }
