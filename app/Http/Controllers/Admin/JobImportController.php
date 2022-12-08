@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Job;
 use App\Models\JobImport;
+use App\Models\JobPost;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -71,7 +72,7 @@ class JobImportController extends Controller
      */
     public function edit(JobImport $jobImport)
     {
-        $jobModel = new Job;
+        $jobModel = new JobPost();
         $types = $jobModel->jobTypes;
         $jobImport->load(['company']);
 
@@ -104,7 +105,7 @@ class JobImportController extends Controller
 
         $company = Company::where('slug', $request->get('company_slug'))->first();
 
-        $job = new Job;
+        $job = new JobPost();
         $job->user_id = 1;
         $job->company_id = $company->id;
         $job->title = $request->get('title');
