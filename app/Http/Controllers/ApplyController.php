@@ -38,7 +38,9 @@ class ApplyController extends Controller
             'resume' => 'required|array|min:2',
         ]);
 
-        $job = JobPost::query()->where('slug', $request->get('jobSlug'))->firstOrFail();
+        $job = JobPost::query()->where('slug', $request->get('jobSlug'))
+            ->with('company')
+            ->firstOrFail();
 
         $application = new Application;
         $application->job_id = $job->id;
@@ -48,8 +50,9 @@ class ApplyController extends Controller
         $application->resume = json_encode($request->get('resume'));
         $application->save();
 
-        $message = 'Name:'. $application->name;
-        $message .= " \nJob Title:" . $job->title;
+        $message = 'Name: '. $application->name;
+        $message .= " \nJob Title: " . $job->title;
+        $message .= " \nCompany Name: " . $job->company->name;
 
         SendRawEmailNotification::dispatch('New Application Submitted', $message);
 

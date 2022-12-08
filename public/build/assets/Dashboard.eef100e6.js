@@ -1,0 +1,1 @@
+import{_ as t}from"./AppLayout.f2a74088.js";import{o as e,c as a,w as o,a as s}from"./app.df3ec849.js";import"./Banner.7e7d7b08.js";const r=s("div",{class:"py-12 text-xl font-bold text-center"}," Welcome ",-1),p={__name:"Dashboard",setup(c){return(_,n)=>(e(),a(t,{title:"Dashboard"},{default:o(()=>[r]),_:1}))}};export{p as default};
