@@ -105,8 +105,9 @@ class JobController extends Controller
             ->where([
                 ['company_id','!=', $jobOriginal->company->id],
                 ['status',1],
-                ['expired_at',">=", now()]
+                ['expired_at',">=", now()],
             ])
+            ->WhereNull('deleted_at')
             ->orderBy('score', 'desc')
             ->limit(5)
             ->get();

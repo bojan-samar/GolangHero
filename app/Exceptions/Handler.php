@@ -2,8 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Mail\ExceptionEmail;
-use http\Client\Request;
+use App\Mail\Misc\ExceptionEmail;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;

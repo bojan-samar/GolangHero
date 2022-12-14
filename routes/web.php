@@ -16,6 +16,11 @@ use Inertia\Inertia;
 
 Route::get('/', [\App\Http\Controllers\MiscController::class,'welcome'])->name('welcome');
 
+Route::get('/contact', function () {
+    return Inertia::render('Misc/Contact');
+})->name('contact');
+Route::post('contact', [\App\Http\Controllers\MiscController::class, 'contactStore'])->name('contact.store');
+
 Route::get('alert', [App\Http\Controllers\JobAlertController::class, 'index'])->name('alert.index');
 Route::post('alert', [App\Http\Controllers\JobAlertController::class, 'store'])->name('alert.store');
 

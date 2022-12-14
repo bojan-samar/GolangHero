@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\JobResource;
+use App\Mail\Misc\ContactUsEmail;
 use App\Models\Company;
 use App\Models\JobPost;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class MiscController extends Controller
@@ -28,6 +31,22 @@ class MiscController extends Controller
         $companyCount = $companyCount->companyCount;
 
         return Inertia::render('Welcome', compact('jobs', 'jobsTotalCount', 'companyCount'));
+    }
+
+    public function contactStore(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191'],
+            'message' => ['required', 'string', 'min:5', 'max:191'],
+        ]);
+
+        Mail::to( config('mail.from.address') )->queue(new ContactUsEmail($request->all()));
+
+
+        return $request->wantsJson()
+            ? new JsonResponse('', 200)
+            : back();
     }
 
     public function queueWorkerStart()
