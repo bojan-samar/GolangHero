@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyResource;
 use App\Http\Traits\CompanyTrait;
-use App\Jobs\SendRawEmailNotification;
+use App\Jobs\SendRawEmailJob;
 use App\Models\Company;
-use App\Models\Job;
 use App\Models\JobPost;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -318,7 +317,7 @@ class JobCreateController extends Controller
         $company->photo = $photo;
         $company->save();
 
-        SendRawEmailNotification::dispatch('New Company Created', 'Company Name: ' . $company->name);
+        SendRawEmailJob::dispatch('New Company Created', 'Company Name: ' . $company->name);
 
         return redirect()->route('job-create', ['search' => $name])->with('queueWorkerStart', true);
     }

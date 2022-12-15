@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendRawEmailNotification;
-use App\Models\Job;
+use App\Jobs\SendRawEmailJob;
 use App\Models\JobPost;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -69,7 +68,7 @@ class CheckoutController extends Controller
         $order->total = $jobPrice;
         $order->save();
 
-        SendRawEmailNotification::dispatch('New Order Processed', "New Order");
+        SendRawEmailJob::dispatch('New Order Processed', "New Order");
 
         return Inertia::render('Checkout/ThankYou', [
             'slug' => $jobSlug,

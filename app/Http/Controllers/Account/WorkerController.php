@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\SendRawEmailNotification;
+use App\Jobs\SendRawEmailJob;
 use App\Models\Account\Worker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -49,7 +49,7 @@ class WorkerController extends Controller
            'user_id' => auth()->user()->id
         ]);
 
-        SendRawEmailNotification::dispatch('New Worker Created', 'Name:'. auth()->user()->name);
+        SendRawEmailJob::dispatch('New Worker Created', 'Name:'. auth()->user()->name);
 
         return redirect()->route('account.worker.index')->with('queueWorkerStart', true);
     }

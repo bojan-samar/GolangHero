@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendRawEmailNotification;
+use App\Jobs\SendRawEmailJob;
 use App\Models\JobAlert;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

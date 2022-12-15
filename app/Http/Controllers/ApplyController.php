@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\JobResource;
-use App\Jobs\SendRawEmailNotification;
+use App\Jobs\SendRawEmailJob;
 use App\Models\Application;
-use App\Models\Job;
 use App\Models\JobPost;
 use App\Models\Tracking;
 use Illuminate\Http\Request;
@@ -54,7 +53,7 @@ class ApplyController extends Controller
         $message .= " \nJob Title: " . $job->title;
         $message .= " \nCompany Name: " . $job->company->name;
 
-        SendRawEmailNotification::dispatch('New Application Submitted', $message);
+        SendRawEmailJob::dispatch('New Application Submitted', $message);
 
         return Inertia::render('Apply/Success')->with('queueWorkerStart', true);
     }
