@@ -5,7 +5,6 @@ import TableMain from "@/Components/Table/Main.vue";
 import TableHeading from "@/Components/Table/Heading.vue";
 import TableRow from "@/Components/Table/Row.vue";
 import TableCell from "@/Components/Table/Cell.vue";
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import Paginator from "@/Components/Paginator.vue";
 import SearchForm from "@/Components/SearchForm.vue";
 
@@ -20,30 +19,30 @@ defineProps({
 <template>
     <AdminLayout title="Users Admin">
 
-        <section class="max-w-4xl mx-auto">
+        <section class="max-w-2xl mx-auto">
             <SearchForm route-name="admin.user.index"></SearchForm>
         </section>
 
-        <section class="max-w-4xl mx-auto mt-5">
-            <table-main>
+        <section class="max-w-2xl mx-auto mt-5">
+            <TableMain>
                 <template #heading>
-                    <table-heading :sort="sort" :direction="direction" column="name">Name</table-heading>
-                    <table-heading :sort="sort" :direction="direction" column="created_at">Created At</table-heading>
+                    <TableHeading :sort="sort" :direction="direction" column="name">Name</TableHeading>
+                    <TableHeading :sort="sort" :direction="direction" column="created_at">Created At</TableHeading>
                 </template>
                 <template #body>
-                    <table-row v-for="user in users.data">
-                        <table-cell>
-                            <Link :href="route('admin.user.edit', user.username)">
+                    <TableRow v-for="user in users.data">
+                        <TableCell>
+                            <Link :href="route('admin.user.show', user.username)">
                                 {{ user.name }}
                             </Link>
-                        </table-cell>
+                        </TableCell>
 
-                        <table-cell>
+                        <TableCell>
                             {{ user.created_at_date_string }}
-                        </table-cell>
-                    </table-row>
+                        </TableCell>
+                    </TableRow>
                 </template>
-            </table-main>
+            </TableMain>
         </section>
 
         <section class="mt-8">

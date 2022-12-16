@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('forum_saves', function (Blueprint $table) {
             $table->id();
-            $table->foreignUuid('user_uuid')->constrained('users','uuid')->cascadeOnDelete();
+            $table->foreignUuid('user_username')->constrained('users','username')->cascadeOnDelete();
             $table->foreignUuid('forum_uuid')->constrained('forums','uuid')->cascadeOnDelete();
             $table->timestamps();
         });

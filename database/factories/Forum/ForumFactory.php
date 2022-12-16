@@ -17,7 +17,7 @@ class ForumFactory extends Factory
     public function definition()
     {
         return [
-            'user_uuid' => 'dd04133a-7d52-4ceb-92e2-00518873f792',
+            'username' => 'dd04133a-7d52-4ceb-92e2-00518873f792',
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->slug(),
             'description' => $this->faker->paragraph(10),

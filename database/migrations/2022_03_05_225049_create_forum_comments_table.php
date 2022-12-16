@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('forum_comments', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->foreignUuid('user_uuid')->constrained('users','uuid')->onDelete('cascade');
+            $table->foreignUuid('user_username')->constrained('users','username')->onDelete('cascade');
             $table->foreignUuid('forum_uuid')->constrained('forums','uuid')->onDelete('cascade');
             $table->text('description');
             $table->softDeletes();

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -39,7 +40,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -50,41 +51,72 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($username)
     {
-        //
+        $user = User::query()
+            ->where('username', $username)
+            ->with('tracking')
+            ->firstOrFail();
+
+        return Inertia::render('Admin/User/Show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($username)
     {
-        //
+        $user = User::query()->where('username', $username)->firstOrFail();
+        $userId = $user->id;
+
+        $userModel = new User();
+        $roles = $userModel->roles;
+
+        return Inertia::render('Admin/User/Edit', compact('user', 'userId', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $userId)
     {
-        //
+        $userModel = new User();
+
+        $request->validate([
+            'name' => ['required', 'string', 'min:1', 'max:255'],
+            'role' => ['required', 'string', 'min:1', 'max:255', Rule::in($userModel->roles),],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($userId)],
+            'username' => ['required', 'string', 'min:1', 'max:36', Rule::unique('users')->ignore($userId)],
+        ]);
+
+        $username = $request->get('username');
+
+        User::query()->where('id', $userId)
+            ->update([
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'username' => $username,
+                'role' => $request->get('role'),
+            ]);
+
+        return redirect()->route('admin.user.show', $username)->with('flash.success', 'User Data Updated.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
