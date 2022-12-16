@@ -66,7 +66,7 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    protected $roles = [
+    public $roles = [
         'superadmin',
         'admin',
         'editor',
