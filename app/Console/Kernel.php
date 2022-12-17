@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        Log::log('Running Command');
+        Log::info('Running Commands');
         $schedule->command('backup:run')->everyFifteenMinutes();
     }
 
