@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         Log::info('Running Commands');
-        $schedule->command('backup:run')->everyFifteenMinutes();
+        $schedule->command('backup:run')->daily();
     }
 
     /**
