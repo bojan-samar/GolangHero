@@ -4,7 +4,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import {Editor, EditorContent} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
-import {onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 
 
 const state = reactive({
