@@ -45,13 +45,21 @@ class JobImport extends Model
 //            'search' => 'nullable|string|min:2|max:100',
 //        ]);
 
+
         $search = request()->search;
+        $title_only = request()->get('title-only');
+
         if ($search) {
-            collect(explode(' ', $search))->each(function ($term, $key) use ($query) {
+            collect(explode(' ', $search))->each(function ($term, $key) use ($query, $title_only) {
                 $term = "%$term%";
-                $query->where(function ($query) use ($term){
-                    $query->where('title', 'LIKE', $term)
-                        ->orWhere('company_name', 'LIKE', $term);
+                $query->where(function ($query) use ($term, $title_only){
+                    if ($title_only){
+                        $query->where('title', 'LIKE', $term);
+                    }else{
+                        $query->where('title', 'LIKE', $term)
+                            ->orWhere('company_name', 'LIKE', $term);
+                    }
+
                 });
             });
         }
@@ -65,6 +73,8 @@ class JobImport extends Model
             $direction = request()->get('direction') ?? 'asc';
             $query = $query->orderBy($sort,$direction);
         }
+
+
 
         return $query;
     }
