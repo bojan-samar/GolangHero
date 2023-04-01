@@ -1,13 +1,17 @@
 <script setup>
 import { Link } from '@inertiajs/inertia-vue3';
+import JobSchema from "@/Components/Job/JobSchema.vue";
 
 defineProps({
     job: Object,
 });
+
 </script>
 
 <template>
     <div class="bg-white card mb-8 flex flex-wrap job-post">
+
+        <JobSchema :job="job"></JobSchema>
 
         <section v-if="job.company && job.company.photo" class="w-full md:w-1/6 company-logo p-4">
             <img class="rounded-full h-16 w-16 object-cover" :src="job.company.photoUrl" :alt="job.company.name">
@@ -46,4 +50,5 @@ defineProps({
         </section>
 
     </div>
+
 </template>

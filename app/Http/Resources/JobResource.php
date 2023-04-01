@@ -21,7 +21,10 @@ class JobResource extends JsonResource
             'location' => $this->location,
             'description' => $this->description,
             'company' => CompanyResource::make($this->whenLoaded('company')),
+            'salary_min' => $this->salary_min,
+            'salary_max' => $this->salary_max,
             'created_at_human' => Carbon::parse($this->created_at)->toFormattedDateString(),
+            'created_at' => $this->created_at,
         ];
     }
 }
