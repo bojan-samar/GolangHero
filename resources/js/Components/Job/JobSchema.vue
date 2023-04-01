@@ -63,7 +63,5 @@ onMounted(() => {
 </script>
 
 <template>
-    <section :id="jobSchemaSectionID">
-        job schema
-    </section>
+    <section :id="jobSchemaSectionID"></section>
 </template>
