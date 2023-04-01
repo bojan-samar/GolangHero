@@ -12,7 +12,7 @@ onMounted(() => {
         "@context": "https://schema.org",
         "@type": "JobPosting",
         "datePosted": `${props.job.created_at}`,
-        "description": `${props.job.description}`,
+        "description": `${props.job.stripped_description}`,
         "baseSalary": {
             "@type": "MonetaryAmount",
             "currency": "USD",

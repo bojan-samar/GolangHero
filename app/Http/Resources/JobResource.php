@@ -20,6 +20,7 @@ class JobResource extends JsonResource
             'title' => $this->title,
             'location' => $this->location,
             'description' => $this->description,
+            'stripped_description' => strip_tags($this->description),
             'company' => CompanyResource::make($this->whenLoaded('company')),
             'salary_min' => $this->salary_min,
             'salary_max' => $this->salary_max,
