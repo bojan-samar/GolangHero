@@ -29,11 +29,11 @@ class JobImport extends Model
         ];
         return Attribute::make(
             get: function (string $value) use ($types) {
-                return $types[$value] ?? $value;
+                return $types[strtolower($value)] ?? $value;
             },
 
             set: function (string $value) use ($types) {
-                return $types[$value] ?? $value;
+                return $types[strtolower($value)] ?? $value;
             },
         );
     }
