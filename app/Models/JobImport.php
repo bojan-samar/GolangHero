@@ -22,6 +22,22 @@ class JobImport extends Model
         );
     }
 
+    protected function jobType(): Attribute
+    {
+        $types =[
+          'full-time' => "FULL_TIME"
+        ];
+        return Attribute::make(
+            get: function (string $value) use ($types) {
+                return $types[$value] ?? $value;
+            },
+
+            set: function (string $value) use ($types) {
+                return $types[$value] ?? $value;
+            },
+        );
+    }
+
     public function scopeFilter($query)
     {
 //        request()->validate([
