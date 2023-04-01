@@ -25,6 +25,7 @@ class JobResource extends JsonResource
             'salary_max' => $this->salary_max,
             'created_at_human' => Carbon::parse($this->created_at)->toFormattedDateString(),
             'created_at' => $this->created_at,
+            'expired_at' => $this->expired_at,
         ];
     }
 }
