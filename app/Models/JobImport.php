@@ -54,10 +54,10 @@ class JobImport extends Model
                 $term = "%$term%";
                 $query->where(function ($query) use ($term, $title_only){
                     if ($title_only){
-                        echo 'searcing title only';
                         $query->where('title', 'LIKE', $term);
                     }else{
                         $query->where('title', 'LIKE', $term)
+                            ->orWhere('description', 'LIKE', $term)
                             ->orWhere('company_name', 'LIKE', $term);
                     }
 
