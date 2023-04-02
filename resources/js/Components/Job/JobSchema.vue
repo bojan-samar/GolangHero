@@ -1,5 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
+import {Editor, EditorContent} from '@tiptap/vue-3'
+import StarterKit from "@tiptap/starter-kit";
 
 const props = defineProps({
     job: Object,
@@ -8,11 +10,21 @@ const props = defineProps({
 const jobSchemaSectionID = ref(Math.floor(Math.random() * 10000000));
 
 onMounted(() => {
+    let description = JSON.parse(props.job.description);
+
+    let editor = new Editor({
+        editable: false,
+        extensions: [
+            StarterKit,
+        ],
+        content: description
+    })
+
     let jobSchema = {
         "@context": "https://schema.org",
         "@type": "JobPosting",
         "datePosted": `${props.job.created_at}`,
-        "description": `${props.job.stripped_description}`,
+        "description": `${editor.getHTML()}`,
         "baseSalary": {
             "@type": "MonetaryAmount",
             "currency": "USD",

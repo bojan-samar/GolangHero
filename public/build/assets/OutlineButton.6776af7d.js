@@ -1,1 +1,0 @@
-import{o as n,e as o,r}from"./app.e509668d.js";const s=["type"],l={__name:"OutlineButton",props:{type:{type:String,default:"button"}},setup(e){return(t,a)=>(n(),o("button",{type:e.type,class:"border inline-flex items-center text-sm rounded mr-2 p-1.5 hover:border-black transition ease-in-out duration-300 no-underline"},[r(t.$slots,"default")],8,s))}};export{l as _};
