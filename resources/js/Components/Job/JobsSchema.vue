@@ -26,15 +26,12 @@ onMounted(() => {
     props.jobs.data.forEach(job => {
         let description;
         try {
-            description = JSON.parse(props.job.description);
+            description = JSON.parse(job.description);
         } catch (error) {
             description = null;
         }
 
-        state.editor.commands.setContent({
-            "type": "doc",
-            "content": description
-        })
+        state.editor.commands.setContent(description)
 
         jobsSchema.push(
             {
@@ -82,9 +79,6 @@ onMounted(() => {
             }
         )
     });
-
-    console.log('jobs schema', jobsSchema);
-
 
     let jobSchemaScript = document.createElement('script');
     jobSchemaScript.setAttribute('type', 'application/ld+json');
