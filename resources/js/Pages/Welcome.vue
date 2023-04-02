@@ -5,12 +5,15 @@ import JobCard from "@/Components/Job/JobCard.vue";
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import JobAlertSignUp from "@/Components/Job/JobAlertSignUp.vue";
+import JobsSchema from "@/Components/Job/JobsSchema.vue";
 
 defineProps({
     jobs: Object,
     jobsTotalCount: Number,
     companyCount: Number,
 });
+
+
 
 
 </script>
@@ -113,6 +116,9 @@ defineProps({
             </div>
 
         </section>
+
+
+        <JobsSchema :jobs="jobs"></JobsSchema>
 
 
     </AppLayout>
