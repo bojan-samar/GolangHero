@@ -23,7 +23,9 @@ class JobImportController extends Controller
         $jobs = JobImport::query()
             ->select('id', 'title', 'company_name', 'salary_min', 'salary_max')
             ->filter()
-            ->latest()->active()->paginate(50);
+            ->latest()
+            ->active()
+            ->paginate(50)->withQueryString();
 
         $sort = \request()->get('sort');
         $direction = \request()->get('direction');
