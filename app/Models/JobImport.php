@@ -53,7 +53,7 @@ class JobImport extends Model
             collect(explode(' ', $search))->each(function ($term, $key) use ($query, $title_only) {
                 $term = "%$term%";
                 $query->where(function ($query) use ($term, $title_only){
-                    if ($title_only){
+                    if ($title_only == 'true'){
                         $query->where('title', 'LIKE', $term);
                     }else{
                         $query->where('title', 'LIKE', $term)
