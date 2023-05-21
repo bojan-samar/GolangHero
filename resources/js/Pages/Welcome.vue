@@ -13,9 +13,6 @@ defineProps({
     companyCount: Number,
 });
 
-
-
-
 </script>
 
 <template>

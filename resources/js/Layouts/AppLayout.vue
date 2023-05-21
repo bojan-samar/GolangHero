@@ -2,9 +2,7 @@
 import {onMounted, ref} from 'vue';
 import { Inertia } from '@inertiajs/inertia';
 import {Head, Link, usePage} from '@inertiajs/inertia-vue3';
-import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
-import Footer from '@/Components/Footer.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';

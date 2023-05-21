@@ -39,7 +39,7 @@ defineProps({
 
 
             <div class="text-center" v-if="! companies.data.length">
-                <div class="mb-2">Nothing Found!!!</div>
+                <div class="mb-2">Company Not Found!!!</div>
             </div>
 
             <div class="mt-5 text-center">
